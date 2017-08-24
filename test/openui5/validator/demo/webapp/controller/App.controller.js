@@ -6,7 +6,7 @@ sap.ui.define([
   'sap/m/MessagePopover',
   'sap/m/MessageToast',
   'openui5/validator/Validator'
-], function(ControlMessageProcessor, Controller, MessageBox, MessageItem, MessagePopover, MessageToast, UI5Validator) {
+], function(ControlMessageProcessor, Controller, MessageBox, MessageItem, MessagePopover, MessageToast, Validator) {
   'use strict';
 
   return Controller.extend('mlauffer.demo.openui5.validator.controller.App', {
@@ -63,7 +63,7 @@ sap.ui.define([
       };
 
       //Initialize the OpenUI5 Validator object
-      this._validator = new UI5Validator(this.getView(), validationSchema);
+      this._validator = new Validator(this.getView(), validationSchema);
     },
 
     _initMessageManager: function() {
