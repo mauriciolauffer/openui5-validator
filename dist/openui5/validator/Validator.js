@@ -48,6 +48,7 @@ sap.ui.define([
       }
       UI5Object.apply(this, arguments);
 
+      //OpenUI5 controls always return their values as STRING, so we force the correct type for validation
       var ajv = new Ajv({
         allErrors: true,
         coerceTypes: true,

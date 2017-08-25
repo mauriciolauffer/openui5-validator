@@ -45,7 +45,6 @@ module.exports = function(grunt) {
           resources: [
             {
               cwd: '<%= dir.src %>',
-              prefix: 'openui5.validator',
               src: [
                 '**/*.js',
                 '**/*.properties',
