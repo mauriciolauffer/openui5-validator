@@ -18,14 +18,11 @@ sap.ui.define([
     onSave: function() {
       this._messageManager.removeAllMessages();
       //Validates UI5 Controls against the validation schema set before
-      const validationResult = this._validator.validate();
-      if (validationResult) {
-        this._onValidationError(validationResult);
-      } else {
+      if (this._validator.validate()) {
         this._onValidationSuccess();
+      } else {
+        this._onValidationError(this._validator.getErrors());
       }
-      //See what OpenUI5 Validator returns
-      console.dir(validationResult);
     },
 
     onMessagePopoverPress: function (evt) {

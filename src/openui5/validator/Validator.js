@@ -30,6 +30,19 @@ sap.ui.define([
   var VALID_UI5_CONTROL_PROPERTIES = ['dateValue', 'value', 'selectedKey'];
 
   /**
+   * Default parameters to initialize Ajv.
+   * https://github.com/epoberezkin/ajv#options
+   *
+   * @private
+   */
+  var DEFAULT_AJV_OPTIONS = {
+    $data: true,
+    allErrors: true,
+    coerceTypes: true,
+    errorDataPath: 'property'
+  };
+
+  /**
    * Constructor for a new Validator.
    * @class
    * @extends sap.ui.base.Object
@@ -37,31 +50,51 @@ sap.ui.define([
    * @constructor
    * @param {sap.ui.core.mvc.View} view UI5 view which contains the fields to be validated.
    * @param {object} schema Schema used for validation.
+   * @param {object} opt Parameters to initialize Ajv.
    * @public
    */
 
-  var Validator = UI5Object.extend("openui5.validator", {
-    //constructor: function(parameters) {
-    constructor: function(view, schema) {
+  var Validator = UI5Object.extend('openui5.validator.Validator', {
+    constructor: function(view, schema, opt) {
       if (!view || !schema) {
         throw new Error('Missing parameters!');
       }
       UI5Object.apply(this, arguments);
 
       //OpenUI5 controls always return their values as STRING, so we force the correct type for validation
-      var ajv = new Ajv({
-        allErrors: true,
-        coerceTypes: true,
-        errorDataPath: 'property'
-      });
+      var ajv = new Ajv(opt || DEFAULT_AJV_OPTIONS);
       this._validate = ajv.compile(schema);
       this._view = view;
       this._validProperties = VALID_UI5_CONTROL_PROPERTIES.map(function _clone(property) { return property; });
+      this._errors = null;
     }
   });
 
   /**
-   * Validates the payload against the schema and returns all errors.
+   * Validates the payload against the schema.
+   *
+   * @returns {boolean} Returns "true" if validation is successful and "false" in case of any validation error.
+   * @public
+   */
+  Validator.prototype.validate = function() {
+    var controls = this._getControls();
+    var payload = this._getPayload(controls);
+    this._clearControlStatus(controls);
+    var isValid = this._validate(payload);
+    if (isValid) {
+      this._errors = null;
+    } else {
+      this._errors = {
+        payloadUsed: payload,
+        originalErrorMessages: this._validate.errors,
+        ui5ErrorMessageObjects: this._processValidationErrors(this._validate.errors)
+      };
+    }
+    return isValid;
+  };
+
+  /**
+   * Returns all validation errors.
    * If there is no error, returns null.
    *
    * @returns {object|null} [parameters] Returns "null" if validation is successful and an object in case of error.
@@ -70,19 +103,8 @@ sap.ui.define([
    * @returns {object} [parameters.ui5ErrorMessageObjects] Array of sap.ui.core.message.Message objects.
    * @public
    */
-  Validator.prototype.validate = function() {
-    var controls = this._getControls();
-    var payload = this._getPayload(controls);
-    this._clearControlStatus(controls);
-    if (this._validate(payload)) {
-      return null;
-    } else {
-      return {
-        payloadUsed: payload,
-        originalErrorMessages: this._validate.errors,
-        ui5ErrorMessageObjects: this._processValidationErrors(this._validate.errors)
-      };
-    }
+  Validator.prototype.getErrors = function() {
+      return this._errors;
   };
 
   /**
@@ -215,16 +237,6 @@ sap.ui.define([
     if (control && control.setValueStateText) {
       control.setValueStateText(message);
     }
-    /*var that = this;
-    controls.forEach(function _setValueState(control) {
-      if (control && control.setValueState) {
-        control.setValueState(ValueState.Error);
-      }
-      if (control && control.setValueStateText) {
-        var errorMessage = that._getControlCustomErrorMessage(control);
-        control.setValueStateText(errorMessage);
-      }
-    });*/
   };
 
   /**
@@ -241,24 +253,11 @@ sap.ui.define([
       var controlId = err.dataPath.substring(1);
       var control = that._view.byId(controlId);
       if (control) {
-        var errorMessage = that._getControlCustomErrorMessage(control) || err.message;
-        that._setControlErrorStatus(control, errorMessage);
-        errorMessageObjects.push(that._createErrorMessageObject(control, errorMessage, ''));
+        that._setControlErrorStatus(control, err.message);
+        errorMessageObjects.push(that._createErrorMessageObject(control, err.message, ''));
       }
     });
     return errorMessageObjects;
-  };
-
-  /**
-   * Gets custom error messages from the control
-   *
-   * @param {sap.ui.core.Control} control The control which has a custom error message assigned.
-   * @returns {string} The custom error message.
-   * @private
-   */
-  Validator.prototype._getControlCustomErrorMessage = function(control) {
-    //TODO: _getControlCustomErrorMessage
-    return '';
   };
 
   /**
@@ -277,8 +276,6 @@ sap.ui.define([
       type: MessageType.Error,
       date: new Date().getTime(),
       target: control.getId()
-      //target: ['/', control.getId(), '/'].join('')
-      //processor: oMessageProcessor
     });
   };
 
