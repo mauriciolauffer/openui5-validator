@@ -198,23 +198,13 @@ sap.ui.require([
         assert.strictEqual(controls[0].getValueState(), ValueState.Error, 'ValueState is correct');
         assert.strictEqual(controls[0].getValueStateText(), 'Default Error Message', 'ValueStateText is correct');
       });
-      test('Should set error status with custom message', (assert) => {
-        //TODO
-        assert.strictEqual(1, 1, 'TODO');
-      });
-    });
-
-    QUnit.module('_getControlCustomErrorMessage', () => {
-      test('Should instantiate the control with defaults', (assert) => {
-        //TODO
-        assert.strictEqual(1, 1, 'TODO');
-      });
     });
 
     QUnit.module('_processValidationErrors', () => {
       test('Should process errors messages and return MessageObjects', (assert) => {
         const validator = new Validator(getView(), getSchema());
-        const errors = validator.validate();
+        validator.validate();
+        const errors = validator.getErrors();
         const errorMessageObjects = validator._processValidationErrors(errors.originalErrorMessages);
         assert.strictEqual(errorMessageObjects instanceof Array, true, 'MessageObjects returned');
         errorMessageObjects.forEach(function (errorMessageObject) {
@@ -250,11 +240,8 @@ sap.ui.require([
     QUnit.module('validate', () => {
       test('Should fail validation', (assert) => {
         const validator = new Validator(getView(), getSchema());
-        const validationResult = validator.validate();
-        assert.strictEqual(validationResult instanceof Object, true, 'validation failed');
-        assert.strictEqual(validationResult.payloadUsed instanceof Object, true, 'validation failed');
-        assert.strictEqual(validationResult.originalErrorMessages instanceof Object, true, 'validation failed');
-        assert.strictEqual(validationResult.ui5ErrorMessageObjects instanceof Array, true, 'validation failed');
+        assert.strictEqual(validator.validate(), false, 'validation failed');
+        const validationResult = validator.getErrors();
         validationResult.ui5ErrorMessageObjects.forEach((errorMessageObject) => {
           assert.strictEqual(errorMessageObject instanceof Message, true, 'error message object ok');
         });
@@ -266,7 +253,7 @@ sap.ui.require([
         view.byId('description').setValue('Lager');
         view.byId('createdate').setDateValue(new Date());
         view.byId('userid').setValue(42);
-        assert.strictEqual(validator.validate(), null, 'validation passed');
+        assert.strictEqual(validator.validate(), true, 'validation passed');
         assert.strictEqual(view.byId('userid').getValueState(), ValueState.None, 'status ok');
         assert.notOk(view.byId('userid').getValueStateText(), 'status text ok');
       });
@@ -276,6 +263,32 @@ sap.ui.require([
         validator.validate();
         assert.strictEqual(view.byId('userid').getValueState(), ValueState.Error, 'status ok');
         assert.ok(view.byId('userid').getValueStateText(), 'status text ok');
+      });
+    });
+
+    QUnit.module('getErrors', () => {
+      test('Should return validation errors', (assert) => {
+        const validator = new Validator(getView(), getSchema());
+        validator.validate();
+        const validationResult = validator.getErrors();
+        assert.strictEqual(validationResult instanceof Object, true, 'validation failed');
+        assert.strictEqual(validationResult.payloadUsed instanceof Object, true, 'validation failed');
+        assert.strictEqual(validationResult.originalErrorMessages instanceof Object, true, 'validation failed');
+        assert.strictEqual(validationResult.ui5ErrorMessageObjects instanceof Array, true, 'validation failed');
+        validationResult.ui5ErrorMessageObjects.forEach((errorMessageObject) => {
+          assert.strictEqual(errorMessageObject instanceof Message, true, 'error message object ok');
+        });
+      });
+      test('Should not return any error', (assert) => {
+        const view = getView();
+        const validator = new Validator(view, getSchema());
+        view.byId('amount').setValue(8000);
+        view.byId('description').setValue('Lager');
+        view.byId('createdate').setDateValue(new Date());
+        view.byId('userid').setValue(42);
+        validator.validate();
+        const validationResult = validator.getErrors();
+        assert.strictEqual(validationResult, null, 'validation passed');
       });
     });
   });
