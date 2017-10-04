@@ -71,12 +71,11 @@ sap.ui.require([
   };
   
   var validator = new Validator(this.getView(), validationSchema);
-  var validationResult = validator.validate();
-  if (validationResult) {
-    console.log('Invalid! Errors...');
-    console.dir(validationResult);
-  } else {
+  if (validator.validate()) {
     console.log('Valid!');
+  } else {
+    console.log('Invalid! Errors...');
+    console.dir(validator.getErrors());
   }
 });
 ```
@@ -86,6 +85,7 @@ sap.ui.require([
 | :---- | :------------------- | :---- | :---------  |
 | view | sap.ui.core.mvc.View | null | UI5 view which contains the fields to be validated.
 | schema | object | null | JSON schema used for validation
+| opt | object | null | JSON schema used for validation
 
 ## Author
 Mauricio Lauffer
