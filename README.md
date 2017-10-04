@@ -85,7 +85,7 @@ sap.ui.require([
 | :---- | :------------------- | :---- | :---------  |
 | view | sap.ui.core.mvc.View | null | UI5 view which contains the fields to be validated.
 | schema | object | null | JSON schema used for validation
-| opt | object | null | JSON schema used for validation
+| opt | object | null | Parameters to initialize Ajv
 
 ## Author
 Mauricio Lauffer
