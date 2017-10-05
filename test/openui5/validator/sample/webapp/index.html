@@ -7,7 +7,7 @@
   <meta name="author" content="Mauricio Lauffer">
   <title>OpenUI5 - Validator</title>
   <script id="sap-ui-bootstrap" type="text/javascript"
-          src="https://openui5.hana.ondemand.com/1.48.5/resources/sap-ui-core.js"
+          src="https://openui5.hana.ondemand.com/1.50.3/resources/sap-ui-core.js"
           data-sap-ui-preload="async"
           data-sap-ui-theme="sap_belize"
           data-sap-ui-libs="sap.m, sap.ui.layout, openui5.validator"
@@ -28,6 +28,7 @@
         }).then(function(oComponent) {
           new Shell({
             app: new ComponentContainer({
+              async: true,
               height: '100%',
               component: oComponent
             })
