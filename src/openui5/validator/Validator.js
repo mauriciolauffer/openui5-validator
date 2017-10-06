@@ -65,13 +65,21 @@ sap.ui.define([
       var ajv = new Ajv(opt || DEFAULT_AJV_OPTIONS);
       this._validate = ajv.compile(schema);
       this._view = view;
-      this._messageProcessor = null;
       this._errors = null;
       this._payload = null;
       this._validProperties = [];
       this.addValidProperties(VALID_UI5_CONTROL_PROPERTIES);
     }
   });
+
+  Validator.prototype.destroy = function() {
+    this._validate = null;
+    this._view = null;
+    this._errors = null;
+    this._payload = null;
+    this._validProperties = null;
+  };
+
 
   /**
    * Validates the payload against the schema.
