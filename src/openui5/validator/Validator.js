@@ -27,7 +27,7 @@ sap.ui.define([
    *
    * @private
    */
-  var VALID_UI5_CONTROL_PROPERTIES = ['dateValue', 'value', 'selectedKey'];
+  var VALID_UI5_CONTROL_PROPERTIES = ['dateValue', 'selectedKey', 'selected', 'value'];
 
   /**
    * Default parameters to initialize Ajv.
@@ -65,8 +65,11 @@ sap.ui.define([
       var ajv = new Ajv(opt || DEFAULT_AJV_OPTIONS);
       this._validate = ajv.compile(schema);
       this._view = view;
-      this._validProperties = VALID_UI5_CONTROL_PROPERTIES.map(function _clone(property) { return property; });
+      this._messageProcessor = null;
       this._errors = null;
+      this._payload = null;
+      this._validProperties = [];
+      this.addValidProperties(VALID_UI5_CONTROL_PROPERTIES);
     }
   });
 
@@ -78,33 +81,35 @@ sap.ui.define([
    */
   Validator.prototype.validate = function() {
     var controls = this._getControls();
-    var payload = this._getPayload(controls);
+    this._payload = this._getPayloadToValidate(controls);
     this._clearControlStatus(controls);
-    var isValid = this._validate(payload);
+    var isValid = this._validate(this._payload);
     if (isValid) {
       this._errors = null;
     } else {
-      this._errors = {
-        payloadUsed: payload,
-        originalErrorMessages: this._validate.errors,
-        ui5ErrorMessageObjects: this._processValidationErrors(this._validate.errors)
-      };
+      this._errors = this._processValidationErrors(this._validate.errors);
     }
     return isValid;
   };
 
   /**
    * Returns all validation errors.
-   * If there is no error, returns null.
    *
-   * @returns {object|null} [parameters] Returns "null" if validation is successful and an object in case of error.
-   * @returns {object} [parameters.payloadUsed] Payload used in the validation.
-   * @returns {object} [parameters.originalErrorMessages] Error messages returned.
-   * @returns {object} [parameters.ui5ErrorMessageObjects] Array of sap.ui.core.message.Message objects.
+   * @returns {array} Array of sap.ui.core.message.Message objects.
    * @public
    */
   Validator.prototype.getErrors = function() {
       return this._errors;
+  };
+
+  /**
+   * Returns the payload used in the validation.
+   *
+   * @returns {object} [payload] Payload used in the validation.
+   * @public
+   */
+  Validator.prototype.getPayloadUsedInValidation = function() {
+    return this._payload;
   };
 
   /**
@@ -114,7 +119,9 @@ sap.ui.define([
    * @public
    */
   Validator.prototype.getValidProperties = function() {
-    return this._validProperties;
+    return this._validProperties.map(function _getValidProperties(validProperty) {
+      return validProperty;
+    });
   };
 
   /**
@@ -143,11 +150,7 @@ sap.ui.define([
       controls = Object.keys(this._validate.schema.properties)
         .map(function _mapSchemaProperties(key) {
           var control = that._view.byId(key);
-          if (control instanceof UI5Control) {
-            return control;
-          } else {
-            return null;
-          }
+          return (control instanceof UI5Control) ? control : null;
         })
         .filter(function _filterSchemaProperties(control) {
           return (control);
@@ -163,7 +166,7 @@ sap.ui.define([
    * @returns {object} Payload to be validated.
    * @private
    */
-  Validator.prototype._getPayload = function(controls) {
+  Validator.prototype._getPayloadToValidate = function(controls) {
     var that = this;
     var payload = {};
     controls.forEach(function _setPayloadProperty(control) {
@@ -274,8 +277,7 @@ sap.ui.define([
       message: shortMessage,
       description: longMessage,
       type: MessageType.Error,
-      date: new Date().getTime(),
-      target: control.getId()
+      target: [control.getId(), '/'].join('')
     });
   };
 

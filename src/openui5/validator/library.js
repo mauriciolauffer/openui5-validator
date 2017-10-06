@@ -1,5 +1,4 @@
 sap.ui.define([
-  'sap/ui/core/library'
 ], function() {
   'use strict';
 
@@ -13,8 +12,7 @@ sap.ui.define([
    * @public
    */
   // delegate further initialization of this library to the Core
-  var openui5 = {};
-  sap.ui.getCore().initLibrary({
+  var validator = sap.ui.getCore().initLibrary({
     name: 'openui5.validator',
     dependencies: [
       'sap.ui.core'
@@ -24,5 +22,5 @@ sap.ui.define([
     version: '${version}'
   });
 
-  return openui5.validator;
+  return validator;
 }, /* bExport= */ false);

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
       src: 'src',
       src_thirdparty: 'src/openui5/validator/thirdparty/',
       dist: 'dist',
-      demo: 'test/openui5/validator/demo',
+      demo: 'test/openui5/validator/sample',
       test: 'test',
       coverage: 'coverage'
     },
@@ -48,8 +48,7 @@ module.exports = function(grunt) {
               src: [
                 '**/*.js',
                 '**/*.properties',
-                '**/*.json',
-                '!**/thirdparty/**'
+                '**/*.json'
               ]
             }
           ],
@@ -66,12 +65,6 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      dist: {
-        expand: true,
-        cwd: '<%= dir.src %>/',
-        src: '**',
-        dest: '<%= dir.dist %>'
-      },
       thirdparty: {
         expand: true,
         cwd: 'node_modules/ajv/dist/',
@@ -111,7 +104,7 @@ module.exports = function(grunt) {
   grunt.registerTask('copy-3rdparty-to-src', ['clean:thirdparty', 'copy:thirdparty']);
 
   // Build task
-  grunt.registerTask('build', ['clean:dist', 'openui5_preload', 'copy:dist']);
+  grunt.registerTask('build', ['clean:dist', 'openui5_preload']);
 
   // Default task
   grunt.registerTask('default', ['serve']);

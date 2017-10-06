@@ -130,10 +130,10 @@ sap.ui.require([
       });
     });
 
-    QUnit.module('_getPayload', () => {
+    QUnit.module('_getPayloadToValidate', () => {
       test('Should return an empty payload', (assert) => {
         const validator = new Validator(getView(), getSchema());
-        assert.deepEqual(validator._getPayload([]), {}, 'empty payload returned');
+        assert.deepEqual(validator._getPayloadToValidate([]), {}, 'empty payload returned');
       });
       test('Should return a payload', (assert) => {
         const payload = {
@@ -144,7 +144,7 @@ sap.ui.require([
         };
         const validator = new Validator(getView(), getSchema());
         const controls = validator._getControls();
-        assert.deepEqual(validator._getPayload(controls), payload, 'payload returned');
+        assert.deepEqual(validator._getPayloadToValidate(controls), payload, 'payload returned');
       });
       test('Should return a payload with values set for properties', (assert) => {
         const payload = {
@@ -160,7 +160,7 @@ sap.ui.require([
         view.byId('description').setValue(payload.description);
         view.byId('createdate').setDateValue(payload.createdate);
         view.byId('userid').setValue(payload.userid);
-        assert.deepEqual(validator._getPayload(controls), payload, 'payload returned');
+        assert.deepEqual(validator._getPayloadToValidate(controls), payload, 'payload returned');
       });
     });
 
@@ -204,8 +204,7 @@ sap.ui.require([
       test('Should process errors messages and return MessageObjects', (assert) => {
         const validator = new Validator(getView(), getSchema());
         validator.validate();
-        const errors = validator.getErrors();
-        const errorMessageObjects = validator._processValidationErrors(errors.originalErrorMessages);
+        const errorMessageObjects = validator._processValidationErrors(validator._validate.errors);
         assert.strictEqual(errorMessageObjects instanceof Array, true, 'MessageObjects returned');
         errorMessageObjects.forEach(function (errorMessageObject) {
           assert.strictEqual(errorMessageObject instanceof Message, true, 'MessageObject is ok');
@@ -220,7 +219,7 @@ sap.ui.require([
     QUnit.module('getValidProperties', () => {
       test('Should return default valid UI5 Control properties', (assert) => {
         const validator = new Validator(getView(), getSchema());
-        assert.strictEqual(validator.getValidProperties().length, 3, 'Default valid properties');
+        assert.strictEqual(validator.getValidProperties().length, 4, 'Default valid properties');
       });
     });
 
@@ -228,12 +227,26 @@ sap.ui.require([
       test('Should add 1 new valid UI5 Control property', (assert) => {
         const validator = new Validator(getView(), getSchema());
         validator.addValidProperties(['ABAP']);
-        assert.strictEqual(validator.getValidProperties().length, 4, '1 new property added');
+        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added');
       });
       test('Should add more than 1 new valid UI5 Control property', (assert) => {
         const validator = new Validator(getView(), getSchema());
         validator.addValidProperties(['Kamehameha', 'Qi']);
-        assert.strictEqual(validator.getValidProperties().length, 5, '2 new properties added');
+        assert.strictEqual(validator.getValidProperties().length, 6, '2 new properties added');
+      });
+      test('Should add 1 new valid UI5 Control property for a given instance', (assert) => {
+        const validator = new Validator(getView(), getSchema());
+        validator.addValidProperties(['ABAP']);
+        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added');
+        const validator2 = new Validator(getView(), getSchema());
+        assert.strictEqual(validator2.getValidProperties().length, 4, 'no new properties');
+      });
+      test('Should be immutable', (assert) => {
+        const validator = new Validator(getView(), getSchema());
+        validator.addValidProperties(['ABAP']);
+        const validProperties = validator.getValidProperties();
+        validProperties.push(['Nodejs']);
+        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added');
       });
     });
 
@@ -241,8 +254,7 @@ sap.ui.require([
       test('Should fail validation', (assert) => {
         const validator = new Validator(getView(), getSchema());
         assert.strictEqual(validator.validate(), false, 'validation failed');
-        const validationResult = validator.getErrors();
-        validationResult.ui5ErrorMessageObjects.forEach((errorMessageObject) => {
+        validator.getErrors().forEach((errorMessageObject) => {
           assert.strictEqual(errorMessageObject instanceof Message, true, 'error message object ok');
         });
       });
@@ -270,12 +282,9 @@ sap.ui.require([
       test('Should return validation errors', (assert) => {
         const validator = new Validator(getView(), getSchema());
         validator.validate();
-        const validationResult = validator.getErrors();
-        assert.strictEqual(validationResult instanceof Object, true, 'validation failed');
-        assert.strictEqual(validationResult.payloadUsed instanceof Object, true, 'validation failed');
-        assert.strictEqual(validationResult.originalErrorMessages instanceof Object, true, 'validation failed');
-        assert.strictEqual(validationResult.ui5ErrorMessageObjects instanceof Array, true, 'validation failed');
-        validationResult.ui5ErrorMessageObjects.forEach((errorMessageObject) => {
+        const validationErrors = validator.getErrors();
+        assert.strictEqual(validationErrors instanceof Array, true, 'validation failed');
+        validationErrors.forEach((errorMessageObject) => {
           assert.strictEqual(errorMessageObject instanceof Message, true, 'error message object ok');
         });
       });
@@ -289,6 +298,21 @@ sap.ui.require([
         validator.validate();
         const validationResult = validator.getErrors();
         assert.strictEqual(validationResult, null, 'validation passed');
+      });
+    });
+
+    QUnit.module('getPayloadUsedInValidation', () => {
+      test('Should return payload used in validation', (assert) => {
+        const validator = new Validator(getView(), getSchema());
+        validator.validate();
+        const payload = validator.getPayloadUsedInValidation();
+        assert.strictEqual(payload instanceof Object, true, 'payload returned');
+      });
+      test('Should not return any payload', (assert) => {
+        const view = getView();
+        const validator = new Validator(view, getSchema());
+        const payload = validator.getPayloadUsedInValidation();
+        assert.strictEqual(payload, null, 'payload null');
       });
     });
   });

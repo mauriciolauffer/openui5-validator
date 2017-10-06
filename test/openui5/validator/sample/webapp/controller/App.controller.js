@@ -1,12 +1,11 @@
 sap.ui.define([
   'sap/ui/core/message/ControlMessageProcessor',
   'sap/ui/core/mvc/Controller',
-  'sap/m/MessageBox',
   'sap/m/MessageItem',
   'sap/m/MessagePopover',
   'sap/m/MessageToast',
   'openui5/validator/Validator'
-], function(ControlMessageProcessor, Controller, MessageBox, MessageItem, MessagePopover, MessageToast, Validator) {
+], function(ControlMessageProcessor, Controller, MessageItem, MessagePopover, MessageToast, Validator) {
   'use strict';
 
   return Controller.extend('mlauffer.demo.openui5.validator.controller.App', {
@@ -71,15 +70,15 @@ sap.ui.define([
       //Initialize the Message Popover used to display the errors
       this._messagePopover = new MessagePopover({
         items: {
-          path: 'message>',
+          path: 'message>/',
           template: new MessageItem({
             description: '{message>description}',
             type: '{message>type}',
-            title: '{message>message}',
-            subtitle: 'ID adssa'
+            title: '{message>message}'
           })
         }
       });
+      this._messagePopover.setModel(this._messageManager.getMessageModel(), 'message');
     },
 
     _onValidationSuccess: function() {
@@ -88,13 +87,11 @@ sap.ui.define([
       MessageToast.show('Form is valid! No errors!');
     },
 
-    _onValidationError: function(validationResult) {
-      this._messageManager.addMessages(validationResult.ui5ErrorMessageObjects);
-      this.getView().byId('btMessagePopover').setText(validationResult.ui5ErrorMessageObjects.length);
+    _onValidationError: function(errors) {
+      this._messageManager.addMessages(errors);
+      this.getView().byId('btMessagePopover').setText(errors.length);
       this.getView().byId('btMessagePopover').setVisible(true);
-      MessageBox.error('Form is invalid! It contains errors!', {
-        details: validationResult.originalErrorMessages
-      });
+      MessageToast.show('Form is invalid! It contains errors!');
     }
   });
 });
