@@ -38,8 +38,7 @@
   "scripts": {
     "test": "grunt lint && grunt test",
     "start": "grunt serve",
-    "build": "grunt build",
-    "postinstall": "grunt copy-3rdparty-to-src"
+    "build": "grunt build"
   },
   "repository": {
     "type": "git",
