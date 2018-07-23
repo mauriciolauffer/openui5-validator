@@ -5,38 +5,37 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Mauricio Lauffer">
-  <title>OpenUI5 - Validator</title>
+  <title>OpenUI5 Validator</title>
   <script id="sap-ui-bootstrap" type="text/javascript"
-          src="https://openui5.hana.ondemand.com/1.50.3/resources/sap-ui-core.js"
+          src="https://openui5.hana.ondemand.com/1.56.3/resources/sap-ui-core.js"
           data-sap-ui-preload="async"
           data-sap-ui-theme="sap_belize"
           data-sap-ui-libs="sap.m, sap.ui.layout, openui5.validator"
           data-sap-ui-resourceroots='{
           "mlauffer.demo.openui5.validator": "./",
-          "openui5.validator": "../../../../../dist/openui5/validator"}'>
-	</script>
-	<script>
-		sap.ui.getCore().attachInit(function() {
+          "openui5.validator": "../../dist/openui5/validator"}'>
+  </script>
+  <script>
+    sap.ui.getCore().attachInit(function() {
+      "use strict";
       sap.ui.require([
-        'sap/m/Shell',
-        'sap/ui/core/ComponentContainer'
-      ], function(Shell, ComponentContainer) {
-        sap.ui.component({
-          name: 'mlauffer.demo.openui5.validator',
+        "sap/ui/core/Component",
+        "sap/ui/core/ComponentContainer"
+      ], function (Component, ComponentContainer) {
+        Component.create({
+          id: "mlauffer_validator",
+          name: "mlauffer.demo.openui5.validator",
           manifest: true,
           async: true
         }).then(function(oComponent) {
-          new Shell({
-            app: new ComponentContainer({
-              async: true,
-              height: '100%',
-              component: oComponent
-            })
-          }).placeAt('root');
+          new ComponentContainer({
+            async: true,
+            component: oComponent
+          }).placeAt("root");
         });
       });
     });
-	</script>
+  </script>
 </head>
 <body class="sapUiBody" id="root" role="application"></body>
 </html>

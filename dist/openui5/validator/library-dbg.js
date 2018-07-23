@@ -8,7 +8,7 @@ sap.ui.define([
    * @namespace
    * @name openui5.validator
    * @author Mauricio Lauffer
-   * @version ${version}
+   * @version 0.1.5
    * @public
    */
   // delegate further initialization of this library to the Core
@@ -19,7 +19,7 @@ sap.ui.define([
     ],
     controls: ['openui5.validator.Validator'],
     noLibraryCSS: true,
-    version: '${version}'
+    version: '0.1.5'
   });
 
   return validator;

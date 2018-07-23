@@ -4,15 +4,13 @@ sap.ui.require([
   'sap/ui/core/ValueState',
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
-  'sap/ui/layout/form/SimpleForm',
   'sap/m/DatePicker',
   'sap/m/Input',
   'sap/m/Label',
   'sap/m/Page',
-  'openui5/validator/Validator',
-  'sap/ui/thirdparty/sinon',
-  'sap/ui/thirdparty/sinon-qunit'
-], function($, UI5Object, ValueState, MessageType, Message, SimpleForm, DatePicker, Input, Label, Page, Validator) {
+  'sap/m/VBox',
+  'openui5/validator/Validator'
+], function($, UI5Object, ValueState, MessageType, Message, DatePicker, Input, Label, Page, VBox, Validator) {
   'use strict';
 
   sap.ui.jsview('mlauffer.test.view', {
@@ -20,7 +18,7 @@ sap.ui.require([
       return '';
     },
     createContent: function() {
-      const form = new SimpleForm(this.createId('form'), {
+      const form = new VBox(this.createId('form'), {
         content: [
           new Label({text: 'User ID'}),
           new Input(this.createId('userid')),

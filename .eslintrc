@@ -2,12 +2,12 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "qunit": true,
+    "jquery": true
   },
   "globals": {
     "sap": true,
-    "jQuery": true,
-    "QUnit": true,
     "Ajv": true
   },
   "rules": {
@@ -41,6 +41,7 @@
       "requireReturn": false
     }],
     "valid-typeof": 2,
+
     "accessor-pairs": 2,
     "block-scoped-var": 1,
     "consistent-return": 1,
@@ -78,7 +79,9 @@
     "radix": 2,
     "wrap-iife": [2, "any"],
     "yoda": 2,
+
     "strict": [2, "function"],
+
     "no-catch-shadow": 2,
     "no-delete-var": 2,
     "no-label-var": 2,
@@ -87,6 +90,7 @@
     "no-undef": 2,
     "no-unused-vars": [2, {"vars":"all", "args":"none"}],
     "no-use-before-define": [1, "nofunc"],
+
     "brace-style": [2, "1tbs", { "allowSingleLine": true }],
     "camelcase": 1,
     "consistent-this": [1, "that"],

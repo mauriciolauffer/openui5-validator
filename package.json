@@ -2,6 +2,7 @@
   "name": "openui5-validator",
   "version": "0.1.5",
   "description": "An OpenUI5 library to validate fields",
+  "homepage": "https://github.com/mauriciolauffer/openui5-validator#readme",
   "author": "Mauricio Lauffer",
   "license": "MIT",
   "keywords": [
@@ -13,32 +14,30 @@
     "validator",
     "validation"
   ],
-  "devDependencies": {
-    "eslint": "^4.17.0",
-    "grunt": "^1.0.2",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-eslint": "^20.1.0",
-    "grunt-karma": "^2.0.0",
-    "grunt-openui5": "^0.12.0",
-    "karma": "^2.0.0",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.1",
-    "karma-openui5": "^0.2.3",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "karma-qunit": "^1.2.1",
-    "karma-sinon": "^1.0.5",
-    "qunitjs": "^2.4.1",
-    "sinon": "^4.3.0"
-  },
+  "main": "dist/openui5/validator/library-preload.js",
   "dependencies": {
-    "ajv": "^6.1.1"
+    "@openui5/sap.ui.core": "^1.56.4",
+    "@openui5/sap.m": "^1.56.4",
+    "@openui5/themelib_sap_belize": "^1.56.4",
+    "ajv": "^6.5.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.2.0",
+    "karma": "^2.0.4",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-coveralls": "^2.0.0",
+    "karma-openui5": "^0.2.3",
+    "karma-qunit": "^2.1.0",
+    "qunit": "^2.6.1"
   },
   "scripts": {
-    "test": "grunt lint && grunt test",
-    "start": "grunt serve",
-    "build": "grunt build"
+    "start": "ui5 serve",
+    "build": "ui5 build",
+    "test": "karma start",
+    "test-ci": "karma start karma.ci.conf",
+    "preversion": "npm run test-ci",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
