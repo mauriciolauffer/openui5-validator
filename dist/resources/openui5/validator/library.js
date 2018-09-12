@@ -1,1 +1,1 @@
-sap.ui.define([],function(){"use strict";const e=sap.ui.getCore().initLibrary({name:"openui5.validator",dependencies:["sap.ui.core"],controls:["openui5.validator.Validator"],noLibraryCSS:true,version:"0.1.6"});return e},false);
+sap.ui.define([],function(){"use strict";const e=sap.ui.getCore().initLibrary({name:"openui5.validator",dependencies:["sap.ui.core"],controls:["openui5.validator.Validator"],noLibraryCSS:true,version:"0.1.7"});return e},false);
