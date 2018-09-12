@@ -13,29 +13,29 @@
           data-sap-ui-libs="sap.m, sap.ui.layout, openui5.validator"
           data-sap-ui-resourceroots='{
           "mlauffer.demo.openui5.validator": "./",
-          "openui5.validator": "../../dist/openui5/validator"}'>
+          "openui5.validator": "../../dist/resources/openui5/validator"}'>
   </script>
   <script>
     sap.ui.getCore().attachInit(function() {
       "use strict";
       sap.ui.require([
-        "sap/ui/core/Component",
         "sap/ui/core/ComponentContainer"
-      ], function (Component, ComponentContainer) {
-        Component.create({
+      ], function (ComponentContainer) {
+        let comp = new ComponentContainer({
           id: "mlauffer_validator",
           name: "mlauffer.demo.openui5.validator",
           manifest: true,
-          async: true
-        }).then(function(oComponent) {
-          new ComponentContainer({
-            async: true,
-            component: oComponent
-          }).placeAt("root");
+          async: true,
+          componentCreated: function(evt) {
+            comp = evt.getParameter('component');
+          }
         });
+        comp.placeAt('content');
       });
     });
   </script>
 </head>
-<body class="sapUiBody" id="root" role="application"></body>
+<body class="sapUiBody" role="application">
+<div id="content"></div>
+</body>
 </html>
