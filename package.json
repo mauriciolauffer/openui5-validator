@@ -37,6 +37,7 @@
     "test": "karma start",
     "test-ci": "karma start karma.ci.conf",
     "preversion": "npm run test-ci",
+    "version": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags"
   },
   "repository": {
