@@ -5,7 +5,7 @@
     "description": "An OpenUI5 library to validate fields",
     "source" : "https://github.com/mauriciolauffer/openui5-validator",
     "documentation": "https://github.com/mauriciolauffer/openui5-validator#readme",
-    "demo": "https://cdn.rawgit.com/mauriciolauffer/openui5-validator/master/demo/webapp/index.html",
+    "demo": "https://htmlpreview.github.io/?https://github.com/mauriciolauffer/openui5-validator/blob/master/demo/webapp/index.html",
     "license" : "MIT",
     "version": 1.0,
     "content": {
@@ -19,7 +19,7 @@
           "id": "Validator",
           "name": "Validator Control Example",
           "description": "Basic form validation with configurable parameters",
-          "url": "https://cdn.rawgit.com/mauriciolauffer/openui5-validator/master/demo/webapp/index.html"
+          "url": "https://htmlpreview.github.io/?https://github.com/mauriciolauffer/openui5-validator/blob/master/demo/webapp/index.html"
         }]
       }
     }
