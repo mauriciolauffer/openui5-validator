@@ -3,7 +3,7 @@
     "id": "openui5.validator",
     "type": "library",
     "applicationVersion": {
-      "version": "0.1.9"
+      "version": "0.1.10"
     },
     "title": "An OpenUI5 library to validate fields."
   },
