@@ -16,9 +16,9 @@
   ],
   "main": "dist/openui5/validator/library-preload.js",
   "dependencies": {
-    "@openui5/sap.ui.core": "^1.56.4",
     "@openui5/sap.m": "^1.56.4",
-    "ajv": "^6.5.2"
+    "@openui5/sap.ui.core": "^1.56.4",
+    "ajv": "^6.5.5"
   },
   "devDependencies": {
     "@openui5/themelib_sap_belize": "^1.56.4",
