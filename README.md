@@ -18,7 +18,7 @@ Ajv Keywords: https://github.com/epoberezkin/ajv#validation-keywords
 ## Demo
 You can checkout a live demo here:
 
-https://htmlpreview.github.io/?https://github.com/mauriciolauffer/openui5-validator/blob/master/demo/webapp/index.html
+https://mauriciolauffer.github.io/openui5-validator/demo/webapp/index.html
 
 [<img src="openui5-validator.png">](https://raw.githubusercontent.com/mauriciolauffer/openui5-password/master/openui5-validator.png)
 

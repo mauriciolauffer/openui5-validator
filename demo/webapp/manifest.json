@@ -7,8 +7,8 @@
 		"dependencies": {
 			"libs": {
 				"sap.ui.core": {},
-        "sap.ui.layout": {},
-				"sap.m": {}
+				"sap.m": {},
+        "openui5.validator": {}
 			}
 		},
 		"rootView": {
