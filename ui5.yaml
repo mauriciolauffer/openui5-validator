@@ -2,3 +2,20 @@ specVersion: '1.0'
 metadata:
   name: openui5-validator
 type: library
+---
+specVersion: "1.0"
+kind: extension
+type: project-shim
+metadata:
+  name: openui5.validator.thirdparty.ajv
+shims:
+  configurations:
+    ajv:
+      specVersion: "1.0"
+      type: module
+      metadata:
+        name: ajv
+      resources:
+        configuration:
+          paths:
+            /resources/openui5/validator/thirdparty/ajv/: "dist/"

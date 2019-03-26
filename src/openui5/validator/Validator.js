@@ -1,13 +1,11 @@
 sap.ui.define([
-  'jquery.sap.global',
   'sap/ui/base/Object',
   'sap/ui/core/Control',
   'sap/ui/core/ValueState',
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
-  './thirdparty/ajv.min',
-  './library'
-], function($, UI5Object, UI5Control, ValueState, MessageType, Message) {
+  'openui5/validator/thirdparty/ajv/ajv.min'
+], function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   'use strict';
 
   /**

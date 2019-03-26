@@ -12,7 +12,7 @@ sap.ui.define([
    * @public
    */
   // delegate further initialization of this library to the Core
-  const validator = sap.ui.getCore().initLibrary({
+  return sap.ui.getCore().initLibrary({
     name: 'openui5.validator',
     dependencies: [
       'sap.ui.core'
@@ -21,6 +21,4 @@ sap.ui.define([
     noLibraryCSS: true,
     version: '${version}'
   });
-
-  return validator;
 }, /* bExport= */ false);
