@@ -1,5 +1,4 @@
 sap.ui.require([
-  'jquery.sap.global',
   'sap/ui/base/Object',
   'sap/ui/core/ValueState',
   'sap/ui/core/MessageType',
@@ -10,7 +9,7 @@ sap.ui.require([
   'sap/m/Page',
   'sap/m/VBox',
   'openui5/validator/Validator'
-], function($, UI5Object, ValueState, MessageType, Message, DatePicker, Input, Label, Page, VBox, Validator) {
+], function(UI5Object, ValueState, MessageType, Message, DatePicker, Input, Label, Page, VBox, Validator) {
   'use strict';
 
   sap.ui.jsview('mlauffer.test.view', {

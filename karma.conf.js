@@ -2,28 +2,27 @@ module.exports = function(config) {
   'use strict';
 
   config.set({
-    frameworks: ['openui5', 'qunit'],
-    openui5: {
-      path: 'http://localhost:8080/resources/sap-ui-core.js',
-      useMockServer: false
+    frameworks: ['qunit', 'sinon', 'ui5'],
+    ui5: {
+      type: 'library',
+      url: 'http://localhost:8080',
+      htmlrunner: false,
+      config: {
+        theme: 'sap_belize',
+        language: 'en',
+        logLevel: 'WARNING',
+        compatVersion: 'edge',
+        preload: 'async',
+        libs: 'sap.m',
+        resourceroots: {
+          'openui5.validator': 'base/src/openui5/validator',
+          'test.unit': 'base/test/openui5/validator/unit'
+        }
+      },
+      tests: ['test/unit/allTests']
     },
     client: {
-      openui5: {
-        config: {
-          theme: 'sap_belize',
-          language: 'EN',
-          bindingSyntax: 'complex',
-          compatVersion: 'edge',
-          preload: 'async',
-          libs: 'openui5.validator',
-          resourceroots: {
-            'openui5.validator': 'base/src/openui5/validator',
-            'test.unit': 'base/test/openui5/validator/unit'
-          }
-        },
-        tests: ['test/unit/allTests']
-      },
-      clearContext: false,
+      useIframe: false,
       qunit: {
         showUI: true,
         testTimeout: 20000, //20 secs
@@ -39,7 +38,7 @@ module.exports = function(config) {
         watched: true
       },
       {
-        pattern: 'test/openui5/validator/unit/**',
+        pattern: 'test/**',
         included: false,
         served: true,
         watched: true
@@ -61,7 +60,6 @@ module.exports = function(config) {
       }
     },
     autoWatch: true,
-    useIframe: false,
     browsers: ['Chrome'],
     reporters: ['progress', 'coverage'],
     reportSlowerThan: 200,
