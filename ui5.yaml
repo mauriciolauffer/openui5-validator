@@ -18,4 +18,4 @@ shims:
       resources:
         configuration:
           paths:
-            /resources/openui5/validator/thirdparty/ajv/: "dist/"
+            /resources/openui5/validator/thirdparty/: "dist/"

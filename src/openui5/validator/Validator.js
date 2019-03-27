@@ -4,7 +4,7 @@ sap.ui.define([
   'sap/ui/core/ValueState',
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
-  'openui5/validator/thirdparty/ajv/ajv.min'
+  'openui5/validator/thirdparty/ajv.min'
 ], function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   'use strict';
 
