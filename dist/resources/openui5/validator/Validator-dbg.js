@@ -12,7 +12,7 @@ sap.ui.define([
    * OpenUI5 Validator.
    *
    * @author Mauricio Lauffer
-   * @version 0.1.11
+   * @version 0.1.12
    *
    * @namespace
    * @name openui5.validator
