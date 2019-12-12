@@ -4,8 +4,20 @@ sap.ui.require([
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
   'sap/ui/core/mvc/XMLView',
-  'openui5/validator/Validator'
-], function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
+  'openui5/validator/Validator',
+],
+/**
+ * Module Dependencies
+ *
+ * @param {typeof sap.ui.base.Object} UI5Object UI5 Object
+ * @param {typeof sap.ui.core.ValueState} ValueState UI5 Value State
+ * @param {typeof sap.ui.core.MessageType} MessageType UI5 Messate Type
+ * @param {typeof sap.ui.core.message.Message} Message UI5 Message object
+ * @param {typeof sap.ui.core.mvc.XMLView} XMLView UI5 XML View
+ * @param {object} Validator An extended UI5 Object
+ * @returns {object} Validator object, an extended UI5 Object
+ */
+function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
   'use strict';
 
   let viewForTest = {};
@@ -22,40 +34,40 @@ sap.ui.require([
       properties: {
         userid: {
           type: 'string',
-          minLength: 2
+          minLength: 2,
         },
         description: {
           type: 'string',
           maxLength: 50,
-          minLength: 5
+          minLength: 5,
         },
         amount: {
           type: 'number',
           minimum: 5,
-          maximum: 999999
+          maximum: 999999,
         },
         createdate: {
-          format: 'date-time'
-        }
-      }
+          format: 'date-time',
+        },
+      },
     };
   }
 
-  const { test } = QUnit;
+  const {test} = QUnit;
 
   QUnit.module('Validator', {
     beforeEach: function() {
       return XMLView.create({
-        definition: viewDefinition
+        definition: viewDefinition,
       })
-        .then((viewCreated) => {
-          viewForTest = viewCreated;
-        });
+          .then((viewCreated) => {
+            viewForTest = viewCreated;
+          });
     },
     afterEach: function() {
       viewForTest.destroy();
       viewForTest = null;
-    }
+    },
   }, function() {
     QUnit.module('constructor', () => {
       test('Should raise an error when creating instance', (assert) => {
@@ -111,8 +123,8 @@ sap.ui.require([
         const schema = getSchema();
         schema.properties = {
           unknownid: {
-            type: 'number'
-          }
+            type: 'number',
+          },
         };
         const validator = new Validator(viewForTest, schema);
         assert.strictEqual(validator._getControls().length, 0, 'ID not found, none controls returned');
@@ -134,7 +146,7 @@ sap.ui.require([
           'amount': null,
           'description': null,
           'createdate': null,
-          'userid': null
+          'userid': null,
         };
         const validator = new Validator(viewForTest, getSchema());
         const controls = validator._getControls();
@@ -145,7 +157,7 @@ sap.ui.require([
           'amount': '9000',
           'description': 'Pale Ale',
           'createdate': new Date(),
-          'userid': '42'
+          'userid': '42',
         };
         const validator = new Validator(viewForTest, getSchema());
         const controls = validator._getControls();
@@ -198,12 +210,12 @@ sap.ui.require([
         validator.validate();
         const errorMessageObjects = validator._processValidationErrors(validator._validate.errors);
         assert.strictEqual(errorMessageObjects instanceof Array, true, 'MessageObjects returned');
-        errorMessageObjects.forEach(function (errorMessageObject) {
+        errorMessageObjects.forEach(function(errorMessageObject) {
           assert.strictEqual(errorMessageObject instanceof Message, true, 'MessageObject is ok');
           assert.strictEqual(errorMessageObject.type, MessageType.Error, 'message type is ok');
           assert.ok(errorMessageObject.message, 'message exist');
           assert.ok(errorMessageObject.target, 'target is ok');
-          //assert.ok(errorMessageObject.description, 'description exist');
+          // assert.ok(errorMessageObject.description, 'description exist');
         });
       });
     });

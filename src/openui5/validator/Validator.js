@@ -4,7 +4,7 @@ sap.ui.define([
   'sap/ui/core/ValueState',
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
-  'openui5/validator/thirdparty/ajv.min'
+  'openui5/validator/thirdparty/ajv.min',
 ],
 /**
  * Module Dependencies
@@ -13,7 +13,7 @@ sap.ui.define([
  * @param {typeof sap.ui.core.Control} UI5Control UI5 Control
  * @param {typeof sap.ui.core.ValueState} ValueState Value State
  * @param {typeof sap.ui.core.MessageType} MessageType Messate Type
- * @param {typeof sap.ui.core.message.Message} Message UI5 Message object 
+ * @param {typeof sap.ui.core.message.Message} Message UI5 Message object
  * @returns {object} Validator object, an extended UI5 Object
  */
 function(UI5Object, UI5Control, ValueState, MessageType, Message) {
@@ -39,7 +39,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
     $data: true,
     allErrors: true,
     coerceTypes: true,
-    errorDataPath: 'property'
+    errorDataPath: 'property',
   };
 
   /**
@@ -65,13 +65,13 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
    * @param {object} opt Parameters to initialize Ajv.
    * @public
    */
-  constructor: function(view, schema, opt) {
+    constructor: function(view, schema, opt) {
       if (!view || !schema) {
         throw new Error('Missing parameters!');
       }
       UI5Object.apply(this, arguments);
 
-      //OpenUI5 controls always return their values as STRING, so we force the correct type for validation
+      // OpenUI5 controls always return their values as STRING, so we force the correct type for validation
       const ajv = new Ajv(opt || DEFAULT_AJV_OPTIONS);
       this._validate = ajv.compile(schema);
       this._view = view;
@@ -79,7 +79,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
       this._payload = null;
       this._validProperties = [];
       this.addValidProperties(VALID_UI5_CONTROL_PROPERTIES);
-    }
+    },
   });
 
   Validator.prototype.destroy = function() {
@@ -117,7 +117,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
    * @public
    */
   Validator.prototype.getErrors = function() {
-      return this._errors;
+    return this._errors;
   };
 
   /**
@@ -165,13 +165,13 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
     const that = this;
     if (this._validate.schema && this._validate.schema.properties) {
       return Object.keys(this._validate.schema.properties)
-        .map(function _mapSchemaProperties(key) {
-          const control = that._view.byId(key);
-          return (control instanceof UI5Control) ? control : null;
-        })
-        .filter(function _filterSchemaProperties(control) {
-          return (control);
-        });
+          .map(function _mapSchemaProperties(key) {
+            const control = that._view.byId(key);
+            return (control instanceof UI5Control) ? control : null;
+          })
+          .filter(function _filterSchemaProperties(control) {
+            return (control);
+          });
     } else {
       return [];
     }
@@ -298,7 +298,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
       message: shortMessage,
       description: longMessage,
       type: MessageType.Error,
-      target: [control.getId(), '/'].join('')
+      target: [control.getId(), '/'].join(''),
     });
   };
 
