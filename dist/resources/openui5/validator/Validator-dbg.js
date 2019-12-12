@@ -4,25 +4,26 @@ sap.ui.define([
   'sap/ui/core/ValueState',
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
-  'openui5/validator/thirdparty/ajv.min'
-], function(UI5Object, UI5Control, ValueState, MessageType, Message) {
+  'openui5/validator/thirdparty/ajv.min',
+],
+/**
+ * Module Dependencies
+ *
+ * @param {typeof sap.ui.base.Object} UI5Object UI5 Object
+ * @param {typeof sap.ui.core.Control} UI5Control UI5 Control
+ * @param {typeof sap.ui.core.ValueState} ValueState Value State
+ * @param {typeof sap.ui.core.MessageType} MessageType Messate Type
+ * @param {typeof sap.ui.core.message.Message} Message UI5 Message object
+ * @returns {object} Validator object, an extended UI5 Object
+ */
+function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   'use strict';
-
-  /**
-   * OpenUI5 Validator.
-   *
-   * @author Mauricio Lauffer
-   * @version 0.1.12
-   *
-   * @namespace
-   * @name openui5.validator
-   * @public
-   */
 
   /**
    * A list of properties of UI5 Controls which will be used to dynamically get the field value.
    * Validation is dynamic, it neither knows the control's type nor the property which is being validated.
    *
+   * @type {string[]}
    * @private
    */
   const VALID_UI5_CONTROL_PROPERTIES = ['dateValue', 'selectedKey', 'selected', 'value'];
@@ -31,35 +32,46 @@ sap.ui.define([
    * Default parameters to initialize Ajv.
    * https://github.com/epoberezkin/ajv#options
    *
+   * @type {object}
    * @private
    */
   const DEFAULT_AJV_OPTIONS = {
     $data: true,
     allErrors: true,
     coerceTypes: true,
-    errorDataPath: 'property'
+    errorDataPath: 'property',
   };
 
   /**
-   * Constructor for a new Validator.
+   * OpenUI5 Validator.
+   *
+   * @author Mauricio Lauffer
+   * @version 0.1.13
+   *
    * @class
+   * @namespace
+   * @name openui5.validator
+   * @public
+   * @alias openui5.validator.Validator
+   */
+  const Validator = UI5Object.extend('openui5.validator.Validator', {
+  /**
+   * Constructor for a new Validator.
    * @extends sap.ui.base.Object
    *
    * @constructor
-   * @param {sap.ui.core.mvc.View} view UI5 view which contains the fields to be validated.
+   * @param {typeof sap.ui.core.mvc.View} view UI5 view which contains the fields to be validated.
    * @param {object} schema Schema used for validation.
    * @param {object} opt Parameters to initialize Ajv.
    * @public
    */
-
-  const Validator = UI5Object.extend('openui5.validator.Validator', {
     constructor: function(view, schema, opt) {
       if (!view || !schema) {
         throw new Error('Missing parameters!');
       }
       UI5Object.apply(this, arguments);
 
-      //OpenUI5 controls always return their values as STRING, so we force the correct type for validation
+      // OpenUI5 controls always return their values as STRING, so we force the correct type for validation
       const ajv = new Ajv(opt || DEFAULT_AJV_OPTIONS);
       this._validate = ajv.compile(schema);
       this._view = view;
@@ -67,7 +79,7 @@ sap.ui.define([
       this._payload = null;
       this._validProperties = [];
       this.addValidProperties(VALID_UI5_CONTROL_PROPERTIES);
-    }
+    },
   });
 
   Validator.prototype.destroy = function() {
@@ -101,11 +113,11 @@ sap.ui.define([
   /**
    * Returns all validation errors.
    *
-   * @returns {array} Array of sap.ui.core.message.Message objects.
+   * @returns {typeof sap.ui.core.message.Message[]} Array of sap.ui.core.message.Message objects.
    * @public
    */
   Validator.prototype.getErrors = function() {
-      return this._errors;
+    return this._errors;
   };
 
   /**
@@ -121,7 +133,7 @@ sap.ui.define([
   /**
    * Returns all valid properties which will be used to dynamically get the field value.
    *
-   * @returns {Array} Array with all valid properties.
+   * @returns {array} Array with all valid properties.
    * @public
    */
   Validator.prototype.getValidProperties = function() {
@@ -133,7 +145,7 @@ sap.ui.define([
   /**
    * Adds new valid properties to be used to dynamically get the field value.
    *
-   * @param {Array} validProperties An array containing valid properties to be added to the class.
+   * @param {array} validProperties An array containing valid properties to be added to the class.
    * @public
    */
   Validator.prototype.addValidProperties = function(validProperties) {
@@ -146,29 +158,29 @@ sap.ui.define([
   /**
    * Returns all UI5 Controls which will be validated.
    *
-   * @returns {Array} List of UI5 Controls to be validated.
+   * @returns {array} List of UI5 Controls to be validated.
    * @private
    */
   Validator.prototype._getControls = function() {
     const that = this;
-    let controls = [];
     if (this._validate.schema && this._validate.schema.properties) {
-      controls = Object.keys(this._validate.schema.properties)
-        .map(function _mapSchemaProperties(key) {
-          const control = that._view.byId(key);
-          return (control instanceof UI5Control) ? control : null;
-        })
-        .filter(function _filterSchemaProperties(control) {
-          return (control);
-        });
+      return Object.keys(this._validate.schema.properties)
+          .map(function _mapSchemaProperties(key) {
+            const control = that._view.byId(key);
+            return (control instanceof UI5Control) ? control : null;
+          })
+          .filter(function _filterSchemaProperties(control) {
+            return (control);
+          });
+    } else {
+      return [];
     }
-    return controls;
   };
 
   /**
    * Returns the payload to be validated.
    *
-   * @param {Array} controls List of UI5 Controls to be validated.
+   * @param {typeof sap.ui.core.Control[]} controls List of UI5 Controls to be validated.
    * @returns {object} Payload to be validated.
    * @private
    */
@@ -186,7 +198,7 @@ sap.ui.define([
   /**
    * Returns the property value of the control.
    *
-   * @param {sap.ui.core.Control} control The control which will have its value extracted.
+   * @param {typeof sap.ui.core.Control} control The control which will have its value extracted.
    * @returns {string} The property value of the control.
    * @private
    */
@@ -218,7 +230,7 @@ sap.ui.define([
   /**
    * Clears the status set to a list of controls
    *
-   * @param {Array} controls The controls which will have the status cleared.
+   * @param {typeof sap.ui.core.Control[]} controls The controls which will have the status cleared.
    * @private
    */
   Validator.prototype._clearControlStatus = function(controls) {
@@ -235,7 +247,7 @@ sap.ui.define([
   /**
    * Sets error status and error message to a control
    *
-   * @param {sap.ui.core.Control} control The control which will have the status updated.
+   * @param {typeof sap.ui.core.Control} control The control which will have the status updated.
    * @param {string} message The error message to be assigned to the control.
    * @private
    */
@@ -251,12 +263,15 @@ sap.ui.define([
   /**
    * Process all validation errors.
    *
-   * @param {Array} errors A list with all errors returned by the validation.
-   * @returns {Array} A list of sap.ui.core.message.Message objects.
+   * @param {array} errors A list with all errors returned by the validation.
+   * @returns {typeof sap.ui.core.message.Message[]} A list of sap.ui.core.message.Message objects.
    * @private
    */
   Validator.prototype._processValidationErrors = function(errors) {
     const that = this;
+    /**
+     * @type {typeof sap.ui.core.message.Message[]}
+     */
     const errorMessageObjects = [];
     errors.forEach(function _mapErrors(err) {
       const controlId = err.dataPath.substring(1);
@@ -272,7 +287,7 @@ sap.ui.define([
   /**
    * Creates an UI5 error message object.
    *
-   * @param {sap.ui.core.Control} control The control with invalid value.
+   * @param {typeof sap.ui.core.Control} control The control with invalid value.
    * @param {string} shortMessage The short error message to be displayed.
    * @param {string} longMessage The long error message to be displayed.
    * @returns {sap.ui.core.message.Message} The UI5 error message object.
@@ -283,9 +298,9 @@ sap.ui.define([
       message: shortMessage,
       description: longMessage,
       type: MessageType.Error,
-      target: [control.getId(), '/'].join('')
+      target: [control.getId(), '/'].join(''),
     });
   };
 
   return Validator;
-}, /* bExport= */ true);
+});
