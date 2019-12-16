@@ -1,3 +1,9 @@
+/*
+ * openui5-validator
+ * (c) Copyright 2017-2019 Mauricio Lauffer
+ * Licensed under the MIT license. See LICENSE file in the project root for full license information.
+ */
+
 sap.ui.define([
   'sap/ui/base/Object',
   'sap/ui/core/Control',
