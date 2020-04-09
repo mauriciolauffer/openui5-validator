@@ -17,10 +17,10 @@ sap.ui.define([], function() {
   return sap.ui.getCore().initLibrary({
     name: 'openui5.validator',
     dependencies: [
-      'sap.ui.core',
+      'sap.ui.core'
     ],
     controls: ['openui5.validator.Validator'],
     noLibraryCSS: true,
-    version: '${version}',
+    version: '${version}'
   });
 });

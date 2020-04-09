@@ -1,6 +1,6 @@
 /* !
  * openui5-validator
- * (c) Copyright 2017-2019 Mauricio Lauffer
+ * (c) Copyright 2017-2020 Mauricio Lauffer
  * Licensed under the MIT license. See LICENSE file in the project root for full license information.
  */
 
