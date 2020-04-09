@@ -2,11 +2,15 @@
 <library xmlns="http://www.sap.com/sap.ui.library.xsd">
   <name>openui5.validator</name>
   <vendor>Mauricio Lauffer</vendor>
-  <version>0.1.14</version>
+  <version>0.1.15</version>
   <documentation>An OpenUI5 library to validate fields</documentation>
   <dependencies>
     <dependency>
       <libraryName>sap.ui.core</libraryName>
+    </dependency>
+    <dependency>
+      <libraryName>sap.m</libraryName>
+      <lazy>true</lazy>
     </dependency>
   </dependencies>
   <appData></appData>

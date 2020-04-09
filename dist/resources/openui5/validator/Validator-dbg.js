@@ -10,7 +10,7 @@ sap.ui.define([
   'sap/ui/core/ValueState',
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
-  'openui5/validator/thirdparty/ajv.min',
+  'openui5/validator/thirdparty/ajv.min'
 ],
 /**
  * Module Dependencies
@@ -45,14 +45,14 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
     $data: true,
     allErrors: true,
     coerceTypes: true,
-    errorDataPath: 'property',
+    errorDataPath: 'property'
   };
 
   /**
    * OpenUI5 Validator.
    *
    * @author Mauricio Lauffer
-   * @version 0.1.14
+   * @version 0.1.15
    *
    * @class
    * @namespace
@@ -85,7 +85,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
       this._payload = null;
       this._validProperties = [];
       this.addValidProperties(VALID_UI5_CONTROL_PROPERTIES);
-    },
+    }
   });
 
   Validator.prototype.destroy = function() {
@@ -304,7 +304,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
       message: shortMessage,
       description: longMessage,
       type: MessageType.Error,
-      target: [control.getId(), '/'].join(''),
+      target: [control.getId(), '/'].join('')
     });
   };
 
