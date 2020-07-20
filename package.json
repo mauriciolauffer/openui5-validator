@@ -22,7 +22,7 @@
   "dependencies": {
     "@openui5/sap.m": "^1.62.1",
     "@openui5/sap.ui.core": "^1.62.1",
-    "ajv": "^6.10.2"
+    "ajv": "^6.12.3"
   },
   "devDependencies": {
     "@openui5/ts-types": "^1.60.5",
