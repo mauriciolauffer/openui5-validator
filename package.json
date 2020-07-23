@@ -16,8 +16,7 @@
   ],
   "main": "dist/resources/openui5/validator/library-preload.js",
   "files": [
-    "dist",
-    "demo"
+    "dist"
   ],
   "dependencies": {
     "ajv": "^6.10.2"
