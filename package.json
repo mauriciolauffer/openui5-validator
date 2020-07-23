@@ -19,7 +19,7 @@
     "dist"
   ],
   "dependencies": {
-    "ajv": "^6.10.2"
+    "ajv": "^6.12.3"
   },
   "devDependencies": {
     "@openui5/ts-types": "^1.60.5",
