@@ -20,24 +20,17 @@
     "demo"
   ],
   "dependencies": {
-    "@openui5/sap.m": "^1.62.1",
-    "@openui5/sap.ui.core": "^1.62.1",
     "ajv": "^6.10.2"
   },
   "devDependencies": {
     "@openui5/ts-types": "^1.60.5",
-    "eslint": "^6.7.2",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-mlauffer-ui5": "^0.0.2",
-    "karma": "^4.4.1",
+    "eslint": "^7.5.0",
+    "eslint-config-mlauffer-ui5": "0.0.4",
+    "karma": "^5.1.0",
     "karma-chrome-launcher": "^3.1.0",
-    "karma-coverage": "^2.0.1",
+    "karma-coverage": "^2.0.2",
     "karma-coveralls": "^2.1.0",
-    "karma-qunit": "^4.0.0",
-    "karma-sinon": "^1.0.5",
-    "karma-ui5": "^1.1.0",
-    "qunit": "^2.9.3",
-    "sinon": "^7.5.0"
+    "karma-ui5": "^2.2.0"
   },
   "scripts": {
     "start": "ui5 serve",
