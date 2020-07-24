@@ -52,7 +52,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
    * OpenUI5 Validator.
    *
    * @author Mauricio Lauffer
-   * @version 0.1.15
+   * @version 0.1.16
    *
    * @class
    * @namespace

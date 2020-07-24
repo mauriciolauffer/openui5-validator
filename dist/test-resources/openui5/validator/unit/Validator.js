@@ -4,7 +4,7 @@ sap.ui.require([
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
   'sap/ui/core/mvc/XMLView',
-  'openui5/validator/Validator',
+  'openui5/validator/Validator'
 ],
 /**
  * Module Dependencies
@@ -34,22 +34,22 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
       properties: {
         userid: {
           type: 'string',
-          minLength: 2,
+          minLength: 2
         },
         description: {
           type: 'string',
           maxLength: 50,
-          minLength: 5,
+          minLength: 5
         },
         amount: {
           type: 'number',
           minimum: 5,
-          maximum: 999999,
+          maximum: 999999
         },
         createdate: {
-          format: 'date-time',
-        },
-      },
+          format: 'date-time'
+        }
+      }
     };
   }
 
@@ -58,7 +58,7 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
   QUnit.module('Validator', {
     beforeEach: function() {
       return XMLView.create({
-        definition: viewDefinition,
+        definition: viewDefinition
       })
           .then((viewCreated) => {
             viewForTest = viewCreated;
@@ -67,7 +67,7 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
     afterEach: function() {
       viewForTest.destroy();
       viewForTest = null;
-    },
+    }
   }, function() {
     QUnit.module('constructor', () => {
       test('Should raise an error when creating instance', (assert) => {
@@ -123,8 +123,8 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
         const schema = getSchema();
         schema.properties = {
           unknownid: {
-            type: 'number',
-          },
+            type: 'number'
+          }
         };
         const validator = new Validator(viewForTest, schema);
         assert.strictEqual(validator._getControls().length, 0, 'ID not found, none controls returned');
@@ -146,18 +146,18 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
           'amount': null,
           'description': null,
           'createdate': null,
-          'userid': null,
+          'userid': null
         };
         const validator = new Validator(viewForTest, getSchema());
         const controls = validator._getControls();
-        assert.deepEqual(validator._getPayloadToValidate(controls), payload, 'payload returned');
+        assert.deepEqual(validator._getPayloadToValidate(controls), payload, 'payload returned ok');
       });
       test('Should return a payload with values set for properties', (assert) => {
         const payload = {
           'amount': '9000',
           'description': 'Pale Ale',
           'createdate': new Date(),
-          'userid': '42',
+          'userid': '42'
         };
         const validator = new Validator(viewForTest, getSchema());
         const controls = validator._getControls();
@@ -231,7 +231,7 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
       test('Should add 1 new valid UI5 Control property', (assert) => {
         const validator = new Validator(viewForTest, getSchema());
         validator.addValidProperties(['ABAP']);
-        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added');
+        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added'); // eslint-disable-line
       });
       test('Should add more than 1 new valid UI5 Control property', (assert) => {
         const validator = new Validator(viewForTest, getSchema());
@@ -241,7 +241,7 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
       test('Should add 1 new valid UI5 Control property for a given instance', (assert) => {
         const validator = new Validator(viewForTest, getSchema());
         validator.addValidProperties(['ABAP']);
-        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added');
+        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added'); // eslint-disable-line
         const validator2 = new Validator(viewForTest, getSchema());
         assert.strictEqual(validator2.getValidProperties().length, 4, 'no new properties');
       });
