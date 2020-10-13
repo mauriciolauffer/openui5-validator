@@ -1,8 +1,8 @@
-specVersion: '2.1'
+specVersion: '2.0'
 metadata:
-  name: openui5-validator
+  name: form-validator
   copyright: |-
-    openui5-validator
+    form-validator
      * (c) Copyright 2017-${currentYear} Mauricio Lauffer
      * Licensed under the MIT license. See LICENSE file in the project root for full license information.
 type: library
@@ -18,7 +18,7 @@ specVersion: "1.0"
 kind: extension
 type: project-shim
 metadata:
-  name: openui5.validator.thirdparty.ajv
+  name: form.validator.thirdparty.ajv
 shims:
   configurations:
     ajv:
@@ -29,4 +29,4 @@ shims:
       resources:
         configuration:
           paths:
-            /resources/openui5/validator/thirdparty/: "dist/"
+            /resources/form/validator/thirdparty/: "dist/"

@@ -8,7 +8,7 @@ sap.ui.define([
   'sap/ui/core/ValueState',
   'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
-  'openui5/validator/thirdparty/ajv.min'
+  'form/validator/thirdparty/ajv.min'
 ],
 /**
  * Module Dependencies
@@ -58,7 +58,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
    * @public
    * @alias openui5.validator.Validator
    */
-  const Validator = UI5Object.extend('openui5.validator.Validator', {
+  const Validator = UI5Object.extend('form.validator.Validator', {
   /**
    * Constructor for a new Validator.
    * @extends sap.ui.base.Object

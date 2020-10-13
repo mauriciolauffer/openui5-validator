@@ -1,9 +1,9 @@
 {
   "sap.app": {
-    "id": "openui5.validator",
+    "id": "form.validator",
     "type": "library",
     "applicationVersion": {
-      "version": "0.1.16"
+      "version": "0.0.1"
     },
     "title": "An OpenUI5 library to validate fields."
   },

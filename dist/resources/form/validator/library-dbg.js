@@ -1,5 +1,7 @@
 /* !
- * ${copyright}
+ * openui5-validator
+ * (c) Copyright 2017-2020 Mauricio Lauffer
+ * Licensed under the MIT license. See LICENSE file in the project root for full license information.
  */
 
 sap.ui.define([], function() {
@@ -11,16 +13,16 @@ sap.ui.define([], function() {
    * @namespace
    * @name openui5.validator
    * @author Mauricio Lauffer
-   * @version ${version}
+   * @version 0.0.1
    * @public
    */
   return sap.ui.getCore().initLibrary({
-    name: 'openui5.validator',
+    name: '.form.validator',
     dependencies: [
       'sap.ui.core'
     ],
-    controls: ['openui5.validator.Validator'],
+    controls: ['form.validator.Validator'],
     noLibraryCSS: true,
-    version: '${version}'
+    version: '0.0.1'
   });
 });

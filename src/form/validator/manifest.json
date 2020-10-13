@@ -1,6 +1,6 @@
 {
   "sap.app": {
-    "id": "openui5.validator",
+    "id": "form.validator",
     "type": "library",
     "applicationVersion": {
       "version": "${version}"
