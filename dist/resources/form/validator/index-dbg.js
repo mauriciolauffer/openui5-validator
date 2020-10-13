@@ -22,11 +22,11 @@ const destination = '../../webapp/lib';
             const appUI5     = json["sap.ui5"]
            
             json["sap.ui5"].components = {
-                "form.validate": {},				
+                "form.validator": {},				
             }
     
             json["sap.ui5"].resourceRoots = {
-                "form.validate": "./lib/form/validate",                
+                "form.validator": "./lib/form/validator",                
             }
             
 
