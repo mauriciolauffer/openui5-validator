@@ -1,8 +1,8 @@
 // include fs-extra package
 var fs = require("fs-extra");
 
-const source      = 'dist';
-const destination = '../../webapp/';
+const source      = 'dist/resources';
+const destination = '../../webapp/lib';
 
  var init = async function(){
         // copy source folder to destination
