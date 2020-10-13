@@ -7,6 +7,7 @@ const destination = '../../webapp/lib';
  var init = async function(){
         // copy source folder to destination
         fs.copy(source, destination, function (err) {
+            console.log(source)
             console.log(destination)
             if (err){
                 console.log('An error occured while copying the folder.')
