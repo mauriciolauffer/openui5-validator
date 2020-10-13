@@ -1,12 +1,13 @@
 // include fs-extra package
 var fs = require("fs-extra");
 
-const source      = 'dist';
-const destination = '../../webapp/';
+const source      = 'dist/resources';
+const destination = '../../webapp/lib';
 
  var init = async function(){
         // copy source folder to destination
         fs.copy(source, destination, function (err) {
+            console.log(source)
             console.log(destination)
             if (err){
                 console.log('An error occured while copying the folder.')
