@@ -1,5 +1,5 @@
 /* !
- * openui5-validator
+ * form-validator
  * (c) Copyright 2017-2020 Mauricio Lauffer
  * Licensed under the MIT license. See LICENSE file in the project root for full license information.
  */
