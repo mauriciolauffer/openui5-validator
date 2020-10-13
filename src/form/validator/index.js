@@ -20,11 +20,7 @@ const destination = '../../webapp/lib';
             const filePath   = process.cwd() + "../../../webapp/manifest.json";
             const json       = await fs.readJSON(filePath);           
             const appUI5     = json["sap.ui5"]
-           
-            json["sap.ui5"].components = {
-                "form.validator": {},				
-            }
-    
+          
             json["sap.ui5"].resourceRoots = {
                 "form.validator": "./lib/form/validator",                
             }

@@ -13,7 +13,7 @@ sap.ui.define([], function() {
    * @namespace
    * @name openui5.validator
    * @author Mauricio Lauffer
-   * @version 0.0.9
+   * @version 0.0.10
    * @public
    */
   return sap.ui.getCore().initLibrary({
@@ -23,6 +23,6 @@ sap.ui.define([], function() {
     ],
     controls: ['form.validator.Validator'],
     noLibraryCSS: true,
-    version: '0.0.9'
+    version: '0.0.10'
   });
 });
