@@ -14,7 +14,7 @@
     "validator",
     "validation"
   ],
-  "main": "dist/index.js",
+  "main": "dist/resources/form/validator/index.js",
   "files": [
     "dist"
   ],
