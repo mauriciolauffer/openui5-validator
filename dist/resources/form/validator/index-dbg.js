@@ -26,7 +26,7 @@ const destination = '../../webapp/lib';
             }
     
             json["sap.ui5"].resourceRoots = {
-                "form.validate": "./lib/validate",                
+                "form.validate": "./lib/form/validate",                
             }
             
 
