@@ -2,7 +2,9 @@
  * ${copyright}
  */
 
-sap.ui.define([], function() {
+sap.ui.define([
+  'sap/ui/core/library'
+], function() {
   'use strict';
 
   /**
