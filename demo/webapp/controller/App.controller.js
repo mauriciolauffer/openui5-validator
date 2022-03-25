@@ -1,13 +1,13 @@
+'use strict';
+
 sap.ui.define([
   'sap/ui/core/message/ControlMessageProcessor',
   'sap/ui/core/mvc/Controller',
   'sap/m/MessageItem',
   'sap/m/MessagePopover',
   'sap/m/MessageToast',
-  'openui5/validator/Validator',
+  'openui5/validator/Validator'
 ], function(ControlMessageProcessor, Controller, MessageItem, MessagePopover, MessageToast, Validator) {
-  'use strict';
-
   return Controller.extend('mlauffer.demo.openui5.validator.controller.App', {
     onInit: function() {
       this._initValidator();
@@ -33,29 +33,29 @@ sap.ui.define([
       const validationSchema = {
         properties: {
           country: { // UI5 control ID
-            minLength: 1, // required
+            minLength: 1 // required
           },
           name: { // UI5 control ID
             type: 'string',
-            minLength: 5, // required
+            minLength: 5 // required
           },
           email: { // UI5 control ID
             type: 'string',
             format: 'email',
-            minLength: 0, // required
+            minLength: 0 // required
           },
           website: { // UI5 control ID
-            format: 'uri',
+            format: 'uri'
           },
           salary: { // UI5 control ID
             type: 'number',
             minimum: 0,
-            maximum: 999999,
+            maximum: 999999
           },
           birthdate: { // UI5 control ID
-            format: 'date',
-          },
-        },
+            format: 'date'
+          }
+        }
       };
 
       // Initialize the OpenUI5 Validator object
@@ -74,9 +74,9 @@ sap.ui.define([
           template: new MessageItem({
             description: '{message>description}',
             type: '{message>type}',
-            title: '{message>message}',
-          }),
-        },
+            title: '{message>message}'
+          })
+        }
       });
       this._messagePopover.setModel(this._messageManager.getMessageModel(), 'message');
     },
@@ -92,6 +92,6 @@ sap.ui.define([
       this.getView().byId('btMessagePopover').setText(errors.length);
       this.getView().byId('btMessagePopover').setVisible(true);
       MessageToast.show('Form is invalid! It contains errors!');
-    },
+    }
   });
 });
