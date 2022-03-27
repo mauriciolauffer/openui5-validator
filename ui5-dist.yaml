@@ -1,10 +1,6 @@
 specVersion: "2.6"
 metadata:
   name: openui5-validator
-  copyright: |-
-    openui5-validator
-     * (c) Copyright 2017-${currentYear} Mauricio Lauffer
-     * Licensed under the MIT license. See LICENSE file in the project root for full license information.
 type: library
 resources:
   configuration:
@@ -12,7 +8,7 @@ resources:
       src: dist/resources
 framework:
   name: OpenUI5
-  version: 1.98.0
+  version: 1.100.0
   libraries:
     - name: sap.ui.core
     - name: sap.m

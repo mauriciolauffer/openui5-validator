@@ -1,7 +1,8 @@
+'use strict';
+
 sap.ui.require([
   'sap/ui/base/Object',
-  'sap/ui/core/ValueState',
-  'sap/ui/core/MessageType',
+  'sap/ui/core/library',
   'sap/ui/core/message/Message',
   'sap/ui/core/mvc/XMLView',
   'openui5/validator/Validator'
@@ -9,17 +10,13 @@ sap.ui.require([
 /**
  * Module Dependencies
  *
- * @param {typeof sap.ui.base.Object} UI5Object UI5 Object
- * @param {typeof sap.ui.core.ValueState} ValueState UI5 Value State
- * @param {typeof sap.ui.core.MessageType} MessageType UI5 Messate Type
- * @param {typeof sap.ui.core.message.Message} Message UI5 Message object
- * @param {typeof sap.ui.core.mvc.XMLView} XMLView UI5 XML View
+ * @param {sap.ui.base.Object} UI5Object sap.ui.base.Object
+ * @param {sap.ui.core} coreLibrary sap.ui.core.library
+ * @param {sap.ui.core.message.Message} Message sap.ui.core.message.Message
+ * @param {sap.ui.core.mvc.XMLView} XMLView sap.ui.core.mvc.XMLView
  * @param {object} Validator An extended UI5 Object
- * @returns {object} Validator object, an extended UI5 Object
  */
-function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
-  'use strict';
-
+function(UI5Object, coreLibrary, Message, XMLView, Validator) {
   let viewForTest = {};
   const viewDefinition = '<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"><Page><VBox>' +
     '<Label text="User ID" /><Input id="userid" />' +
@@ -29,6 +26,9 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
     '<Label text="Whatever field which is not validated" /><Input id="whatever" />' +
     '</VBox></Page></mvc:View>';
 
+  /**
+   *
+   */
   function getSchema() {
     return {
       properties: {
@@ -143,10 +143,10 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
       });
       test('Should return a payload', (assert) => {
         const payload = {
-          'amount': null,
-          'description': null,
-          'createdate': null,
-          'userid': null
+          'amount': '',
+          'description': '',
+          'createdate': '',
+          'userid': ''
         };
         const validator = new Validator(viewForTest, getSchema());
         const controls = validator._getControls();
@@ -183,12 +183,12 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
         const validator = new Validator(viewForTest, getSchema());
         const controls = validator._getControls();
         controls.forEach(function _setValueState(control) {
-          control.setValueState(ValueState.Error);
+          control.setValueState(coreLibrary.ValueState.Error);
           control.setValueStateText('Error? What error?');
         });
         validator._clearControlStatus(controls);
         controls.forEach(function _testValueState(control) {
-          assert.strictEqual(control.getValueState(), ValueState.None, 'ValueState cleared');
+          assert.strictEqual(control.getValueState(), coreLibrary.ValueState.None, 'ValueState cleared');
           assert.strictEqual(control.getValueStateText(), '', 'ValueStateText cleared');
         });
       });
@@ -199,7 +199,7 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
         const validator = new Validator(viewForTest, getSchema());
         const controls = validator._getControls();
         validator._setControlErrorStatus(controls[0], 'Default Error Message');
-        assert.strictEqual(controls[0].getValueState(), ValueState.Error, 'ValueState is correct');
+        assert.strictEqual(controls[0].getValueState(), coreLibrary.ValueState.Error, 'ValueState is correct');
         assert.strictEqual(controls[0].getValueStateText(), 'Default Error Message', 'ValueStateText is correct');
       });
     });
@@ -212,7 +212,7 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
         assert.strictEqual(errorMessageObjects instanceof Array, true, 'MessageObjects returned');
         errorMessageObjects.forEach(function(errorMessageObject) {
           assert.strictEqual(errorMessageObject instanceof Message, true, 'MessageObject is ok');
-          assert.strictEqual(errorMessageObject.type, MessageType.Error, 'message type is ok');
+          assert.strictEqual(errorMessageObject.type, coreLibrary.MessageType.Error, 'message type is ok');
           assert.ok(errorMessageObject.message, 'message exist');
           assert.ok(errorMessageObject.target, 'target is ok');
           // assert.ok(errorMessageObject.description, 'description exist');
@@ -269,13 +269,13 @@ function(UI5Object, ValueState, MessageType, Message, XMLView, Validator) {
         viewForTest.byId('createdate').setDateValue(new Date());
         viewForTest.byId('userid').setValue(42);
         assert.strictEqual(validator.validate(), true, 'validation passed');
-        assert.strictEqual(viewForTest.byId('userid').getValueState(), ValueState.None, 'status ok');
+        assert.strictEqual(viewForTest.byId('userid').getValueState(), coreLibrary.ValueState.None, 'status ok');
         assert.notOk(viewForTest.byId('userid').getValueStateText(), 'status text ok');
       });
       test('Should set error status when fail validation', (assert) => {
         const validator = new Validator(viewForTest, getSchema());
         validator.validate();
-        assert.strictEqual(viewForTest.byId('userid').getValueState(), ValueState.Error, 'status ok');
+        assert.strictEqual(viewForTest.byId('userid').getValueState(), coreLibrary.ValueState.Error, 'status ok');
         assert.ok(viewForTest.byId('userid').getValueStateText(), 'status text ok');
       });
     });
