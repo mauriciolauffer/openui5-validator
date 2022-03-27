@@ -26,24 +26,24 @@
   "devDependencies": {
     "@microsoft/eslint-formatter-sarif": "^2.1.7",
     "@openui5/ts-types": "^1.100.0",
-    "eslint": "^8.11.0",
+    "eslint": "^8.12.0",
     "eslint-config-mlauffer-ui5": "^0.3.1",
     "karma": "^6.3.17",
     "karma-chrome-launcher": "^3.1.1",
     "karma-coverage": "^2.2.0",
     "karma-coveralls": "^2.1.0",
     "karma-ui5": "^2.4.0",
-    "ui5-task-copy-resources": "^0.0.1",
-    "ui5-tooling-modules": "^0.2.4"
+    "ui5-task-copy-resources": "^0.0.1"
   },
   "ui5": {
     "dependencies": [
-      "ui5-tooling-modules",
-      "ui5-task-copy-resources"
+      "ui5-task-copy-resources",
+      "ajv"
     ]
   },
   "scripts": {
     "start": "ui5 serve",
+    "start:dist": "ui5 serve --config ui5-dist.yaml",
     "build": "ui5 build --clean-dest",
     "lint": "eslint src test demo",
     "lint:ci": "eslint src test -f @microsoft/eslint-formatter-sarif -o target/eslint.sarif",

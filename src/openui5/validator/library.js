@@ -1,12 +1,20 @@
+'use strict';
+
 /* !
  * ${copyright}
  */
 
 sap.ui.define([
+  'sap/ui/core/Core',
   'sap/ui/core/library'
-], function() {
-  'use strict';
-
+],
+/**
+ * Module Dependencies
+ *
+ * @param {sap.ui.core.Core} Core - sap.ui.core.Core
+ * @returns {any} openui5.validator
+ */
+function(Core) {
   /**
    * OpenUI5 library: openui5.validator.
    *
@@ -16,7 +24,7 @@ sap.ui.define([
    * @version ${version}
    * @public
    */
-  return sap.ui.getCore().initLibrary({
+  return Core.initLibrary({
     name: 'openui5.validator',
     dependencies: [
       'sap.ui.core'

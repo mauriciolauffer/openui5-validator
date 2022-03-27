@@ -1,28 +1,27 @@
+'use strict';
+
 /*
  * ${copyright}
  */
 
 sap.ui.define([
   'sap/ui/base/Object',
+  'sap/ui/core/library',
   'sap/ui/core/Control',
-  'sap/ui/core/ValueState',
-  'sap/ui/core/MessageType',
   'sap/ui/core/message/Message',
   'openui5/validator/thirdparty/ajv.min'
+  //'ajv/dist/ajv.min'
 ],
 /**
  * Module Dependencies
  *
- * @param {typeof sap.ui.base.Object} UI5Object UI5 Object
- * @param {typeof sap.ui.core.Control} UI5Control UI5 Control
- * @param {typeof sap.ui.core.ValueState} ValueState Value State
- * @param {typeof sap.ui.core.MessageType} MessageType Messate Type
- * @param {typeof sap.ui.core.message.Message} Message UI5 Message object
- * @returns {object} Validator object, an extended UI5 Object
+ * @param {sap.ui.base.Object} UI5Object sap.ui.base.Object
+ * @param {sap.ui.core} coreLibrary sap.ui.core.library
+ * @param {sap.ui.core.Control} UI5Control sap.ui.core.Control
+ * @param {sap.ui.core.message.Message} Message sap.ui.core.message.Message
+ * @returns {object} openui5.validator.Validator
  */
-function(UI5Object, UI5Control, ValueState, MessageType, Message) {
-  'use strict';
-
+function(UI5Object, coreLibrary, UI5Control, Message) {
   /**
    * A list of properties of UI5 Controls which will be used to dynamically get the field value.
    * Validation is dynamic, it neither knows the control's type nor the property which is being validated.
@@ -51,7 +50,6 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
    *
    * @author Mauricio Lauffer
    * @version ${version}
-   *
    * @class
    * @namespace
    * @name openui5.validator
@@ -61,10 +59,10 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   const Validator = UI5Object.extend('openui5.validator.Validator', {
   /**
    * Constructor for a new Validator.
-   * @extends sap.ui.base.Object
    *
-   * @constructor
-   * @param {typeof sap.ui.core.mvc.View} view UI5 view which contains the fields to be validated.
+   * @augments sap.ui.base.Object
+   * @constructs
+   * @param {sap.ui.core.mvc.View} view UI5 view which contains the fields to be validated.
    * @param {object} schema Schema used for validation.
    * @param {object} opt Parameters to initialize Ajv.
    * @public
@@ -81,6 +79,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
       this._view = view;
       this._errors = null;
       this._payload = null;
+      /** @type {string[]} */
       this._validProperties = [];
       this.addValidProperties(VALID_UI5_CONTROL_PROPERTIES);
     }
@@ -117,7 +116,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Returns all validation errors.
    *
-   * @returns {typeof sap.ui.core.message.Message[]} Array of sap.ui.core.message.Message objects.
+   * @returns {sap.ui.core.message.Message[]} Array of sap.ui.core.message.Message objects.
    * @public
    */
   Validator.prototype.getErrors = function() {
@@ -137,7 +136,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Returns all valid properties which will be used to dynamically get the field value.
    *
-   * @returns {array} Array with all valid properties.
+   * @returns {string[]} Array with all valid properties.
    * @public
    */
   Validator.prototype.getValidProperties = function() {
@@ -149,7 +148,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Adds new valid properties to be used to dynamically get the field value.
    *
-   * @param {array} validProperties An array containing valid properties to be added to the class.
+   * @param {string[]} validProperties An array containing valid properties to be added to the class.
    * @public
    */
   Validator.prototype.addValidProperties = function(validProperties) {
@@ -162,7 +161,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Returns all UI5 Controls which will be validated.
    *
-   * @returns {array} List of UI5 Controls to be validated.
+   * @returns {sap.ui.core.Control[]} List of UI5 Controls to be validated.
    * @private
    */
   Validator.prototype._getControls = function() {
@@ -184,7 +183,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Returns the payload to be validated.
    *
-   * @param {typeof sap.ui.core.Control[]} controls List of UI5 Controls to be validated.
+   * @param {sap.ui.core.Control[]} controls List of UI5 Controls to be validated.
    * @returns {object} Payload to be validated.
    * @private
    */
@@ -202,12 +201,12 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Returns the property value of the control.
    *
-   * @param {typeof sap.ui.core.Control} control The control which will have its value extracted.
+   * @param {sap.ui.core.Control} control The control which will have its value extracted.
    * @returns {string} The property value of the control.
    * @private
    */
   Validator.prototype._getControlValue = function(control) {
-    let value = null;
+    let value = '';
     const controlProperties = Object.keys(control.mProperties);
     this._validProperties.forEach(function _filterControlProperties(validProperty) {
       if (!value) {
@@ -215,11 +214,12 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
           return (controlProperty === validProperty);
         });
         if (isValidProperty) {
-          /** Could use control.getProperty(property), but UI5 documentation says:
-           * Note: This method is a low-level API as described in the class documentation.
-           * Applications or frameworks must not use this method to generically retrieve the value of a property.
-           * Use the concrete method getXYZ for property 'XYZ' instead.
-           * https://openui5.hana.ondemand.com/#/api/sap.ui.base.ManagedObject/methods/getProperty
+          /**
+           Could use control.getProperty(property), but UI5 documentation says:
+           Note: This method is a low-level API as described in the class documentation.
+           Applications or frameworks must not use this method to generically retrieve the value of a property.
+           Use the concrete method getXYZ for property 'XYZ' instead.
+           https://openui5.hana.ondemand.com/#/api/sap.ui.base.ManagedObject/methods/getProperty
            */
           const getPropertyMethod = ['get', validProperty.substring(0, 1).toUpperCase(), validProperty.substring(1)].join('');
           if (control[getPropertyMethod]) {
@@ -234,13 +234,13 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Clears the status set to a list of controls
    *
-   * @param {typeof sap.ui.core.Control[]} controls The controls which will have the status cleared.
+   * @param {sap.ui.core.Control[]} controls The controls which will have the status cleared.
    * @private
    */
   Validator.prototype._clearControlStatus = function(controls) {
     controls.forEach(function _setValueState(control) {
       if (control && control.setValueState) {
-        control.setValueState(ValueState.None);
+        control.setValueState(coreLibrary.ValueState.None);
       }
       if (control && control.setValueStateText) {
         control.setValueStateText();
@@ -251,13 +251,13 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Sets error status and error message to a control
    *
-   * @param {typeof sap.ui.core.Control} control The control which will have the status updated.
+   * @param {sap.ui.core.Control} control The control which will have the status updated.
    * @param {string} message The error message to be assigned to the control.
    * @private
    */
   Validator.prototype._setControlErrorStatus = function(control, message) {
     if (control && control.setValueState) {
-      control.setValueState(ValueState.Error);
+      control.setValueState(coreLibrary.ValueState.Error);
     }
     if (control && control.setValueStateText) {
       control.setValueStateText(message);
@@ -267,14 +267,14 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Process all validation errors.
    *
-   * @param {array} errors A list with all errors returned by the validation.
-   * @returns {typeof sap.ui.core.message.Message[]} A list of sap.ui.core.message.Message objects.
+   * @param {object[]} errors A list with all errors returned by the validation.
+   * @returns {sap.ui.core.message.Message[]} A list of sap.ui.core.message.Message objects.
    * @private
    */
   Validator.prototype._processValidationErrors = function(errors) {
     const that = this;
     /**
-     * @type {typeof sap.ui.core.message.Message[]}
+     * @type {sap.ui.core.message.Message[]}
      */
     const errorMessageObjects = [];
     errors.forEach(function _mapErrors(err) {
@@ -291,7 +291,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
   /**
    * Creates an UI5 error message object.
    *
-   * @param {typeof sap.ui.core.Control} control The control with invalid value.
+   * @param {sap.ui.core.Control} control The control with invalid value.
    * @param {string} shortMessage The short error message to be displayed.
    * @param {string} longMessage The long error message to be displayed.
    * @returns {sap.ui.core.message.Message} The UI5 error message object.
@@ -301,7 +301,7 @@ function(UI5Object, UI5Control, ValueState, MessageType, Message) {
     return new Message({
       message: shortMessage,
       description: longMessage,
-      type: MessageType.Error,
+      type: coreLibrary.MessageType.Error,
       target: [control.getId(), '/'].join('')
     });
   };

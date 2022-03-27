@@ -1,14 +1,22 @@
+'use strict';
+
 /* !
  * openui5-validator
- * (c) Copyright 2017-2021 Mauricio Lauffer
+ * (c) Copyright 2017-2022 Mauricio Lauffer
  * Licensed under the MIT license. See LICENSE file in the project root for full license information.
  */
 
 sap.ui.define([
+  'sap/ui/core/Core',
   'sap/ui/core/library'
-], function() {
-  'use strict';
-
+],
+/**
+ * Module Dependencies
+ *
+ * @param {sap.ui.core.Core} Core - sap.ui.core.Core
+ * @returns {any} openui5.validator
+ */
+function(Core) {
   /**
    * OpenUI5 library: openui5.validator.
    *
@@ -18,7 +26,7 @@ sap.ui.define([
    * @version 0.1.18
    * @public
    */
-  return sap.ui.getCore().initLibrary({
+  return Core.initLibrary({
     name: 'openui5.validator',
     dependencies: [
       'sap.ui.core'

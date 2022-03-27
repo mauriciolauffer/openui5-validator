@@ -8,10 +8,6 @@
     <dependency>
       <libraryName>sap.ui.core</libraryName>
     </dependency>
-    <dependency>
-      <libraryName>sap.m</libraryName>
-      <lazy>true</lazy>
-    </dependency>
   </dependencies>
   <appData></appData>
 </library>

@@ -1,4 +1,4 @@
-specVersion: '2.2'
+specVersion: '2.6'
 metadata:
   name: openui5-validator
   copyright: |-
@@ -8,13 +8,27 @@ metadata:
 type: library
 framework:
   name: OpenUI5
-  version: 1.80.0
+  version: 1.100.0
   libraries:
     - name: sap.ui.core
     - name: sap.m
       development: true
+builder:
+  resources:
+    excludes:
+      - "/test-resources/**"
+  libraryPreload:
+    excludes:
+      - "openui5/validator/thirdparty/**"
+  customTasks:
+    - name: ui5-task-copy-resources
+      afterTask: uglify
+      configuration:
+        includeDependencies: true
+        resources:
+          - "/resources/openui5/validator/thirdparty/**"
 ---
-specVersion: "2.2"
+specVersion: "2.6"
 kind: extension
 type: project-shim
 metadata:
@@ -22,7 +36,7 @@ metadata:
 shims:
   configurations:
     ajv:
-      specVersion: "2.2"
+      specVersion: "2.6"
       type: module
       metadata:
         name: ajv
