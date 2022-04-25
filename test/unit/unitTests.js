@@ -5,6 +5,7 @@ QUnit.config.reorder = false;
 
 sap.ui.getCore().attachInit(function() {
   sap.ui.require([
+    'openui5/validator/library',
     'test/unit/allTests'
   ], function() {
     if (window.blanket) {
