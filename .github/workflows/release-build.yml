@@ -1,7 +1,7 @@
 name: release-build
 on:
   push:
-    branches: [release-please--branches--main]
+    branches: [release-please--branches--master]
   workflow_dispatch:
 
 permissions: read-all
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        ref: 'release-please--branches--main'
+        ref: 'release-please--branches--master'
     - uses: actions/setup-node@v3
       with:
         node-version: 16
