@@ -10,7 +10,6 @@ sap.ui.define([
   'sap/ui/core/Control',
   'sap/ui/core/message/Message',
   'openui5/validator/thirdparty/ajv.min'
-  //'ajv/dist/ajv.min'
 ],
 /**
  * Module Dependencies

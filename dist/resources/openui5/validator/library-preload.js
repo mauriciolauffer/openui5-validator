@@ -12,7 +12,7 @@ sap.ui.require.preload({
  * openui5-validator
  * (c) Copyright 2017-2022 Mauricio Lauffer
  * Licensed under the MIT license. See LICENSE file in the project root for full license information.
- */sap.ui.define(["sap/ui/core/Core","sap/ui/core/library"],function(i){return i.initLibrary({name:"openui5.validator",dependencies:["sap.ui.core"],controls:["openui5.validator.Validator"],noLibraryCSS:true,version:"0.1.18"})});
+ */sap.ui.define(["sap/ui/core/Core","sap/ui/core/library"],function(i){i.initLibrary({name:"openui5.validator",dependencies:["sap.ui.core"],controls:["openui5.validator.Validator"],noLibraryCSS:true,version:"0.1.18"});return openui5.validator});
 },
 	"openui5/validator/manifest.json":'{"sap.app":{"id":"openui5.validator","type":"library","applicationVersion":{"version":"0.1.18"},"title":"An OpenUI5 library to validate fields."},"sap.ui":{"technology":"UI5","deviceTypes":{"desktop":true,"tablet":true,"phone":true}},"sap.ui5":{"dependencies":{"minUI5Version":"1.30.0","libs":{"sap.ui.core":{}}},"contentDensities":{"compact":true,"cozy":true}}}'
 });

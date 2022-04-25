@@ -27,7 +27,9 @@ function(UI5Object, coreLibrary, Message, XMLView, Validator) {
     '</VBox></Page></mvc:View>';
 
   /**
+   * Schema
    *
+   * @returns {object} Schema
    */
   function getSchema() {
     return {

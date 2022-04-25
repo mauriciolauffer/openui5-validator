@@ -12,7 +12,7 @@ sap.ui.define([
  * Module Dependencies
  *
  * @param {sap.ui.core.Core} Core - sap.ui.core.Core
- * @returns {any} openui5.validator
+ * @returns {object} openui5.validator library
  */
 function(Core) {
   /**
@@ -24,7 +24,7 @@ function(Core) {
    * @version ${version}
    * @public
    */
-  return Core.initLibrary({
+  Core.initLibrary({
     name: 'openui5.validator',
     dependencies: [
       'sap.ui.core'
@@ -33,4 +33,6 @@ function(Core) {
     noLibraryCSS: true,
     version: '${version}'
   });
+
+  return openui5.validator; // eslint-disable-line
 });
