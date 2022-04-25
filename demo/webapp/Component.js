@@ -5,6 +5,7 @@ sap.ui.define([
 ], function(UIComponent) {
   return UIComponent.extend('mlauffer.demo.openui5.validator.Component', {
     metadata: {
+      interfaces: ['sap.ui.core.IAsyncContentCreation'],
       manifest: 'json'
     },
 

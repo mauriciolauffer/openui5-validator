@@ -10,8 +10,11 @@ sap.ui.define([
 ], function(ControlMessageProcessor, Controller, MessageItem, MessagePopover, MessageToast, Validator) {
   return Controller.extend('mlauffer.demo.openui5.validator.controller.App', {
     onInit: function() {
-      this._initValidator();
-      this._initMessageManager();
+      this.getOwnerComponent().rootControlLoaded()
+          .then(function() {
+            this._initValidator();
+            this._initMessageManager();
+          }.bind(this));
     },
 
     onSave: function() {
