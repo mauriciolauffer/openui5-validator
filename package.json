@@ -15,6 +15,7 @@
     "validation"
   ],
   "main": "dist/resources/openui5/validator/library-preload.js",
+  "browser": "dist/resources/openui5/validator/library-preload.js",
   "files": [
     "dist",
     "src",
@@ -25,10 +26,10 @@
   },
   "devDependencies": {
     "@microsoft/eslint-formatter-sarif": "^2.1.7",
-    "@openui5/ts-types": "^1.100.0",
-    "eslint": "^8.12.0",
-    "eslint-config-mlauffer-ui5": "^0.3.1",
-    "karma": "^6.3.17",
+    "@openui5/ts-types": "^1.101.0",
+    "eslint": "^8.14.0",
+    "eslint-config-mlauffer-ui5": "^0.3.2",
+    "karma": "^6.3.19",
     "karma-chrome-launcher": "^3.1.1",
     "karma-coverage": "^2.2.0",
     "karma-coveralls": "^2.1.0",
