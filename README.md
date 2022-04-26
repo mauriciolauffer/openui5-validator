@@ -1,7 +1,6 @@
 # openui5-validator
 
 [![npm](https://img.shields.io/npm/v/openui5-validator)](https://www.npmjs.com/package/openui5-validator)
-![NPM](https://img.shields.io/npm/l/openui5-validator)
 [![test](https://github.com/mauriciolauffer/openui5-validator/actions/workflows/test.yml/badge.svg)](https://github.com/mauriciolauffer/openui5-validator/actions/workflows/test.yml)
 
 An OpenUI5 library to validate fields.
