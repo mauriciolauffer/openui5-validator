@@ -1,0 +1,1 @@
+{"version":3,"file":"library.js","names":["sap","ui","define","Core","initLibrary","name","dependencies","controls","noLibraryCSS","version","openui5","validator"],"sources":["library-dbg.js"],"mappings":"AAAA;;;;;GAQAA,IAAIC,GAAGC,OAAO,CACZ,mBACA,uBAOF,SAASC,GASPA,EAAKC,YAAY,CACfC,KAAM,oBACNC,aAAc,CACZ,eAEFC,SAAU,CAAC,+BACXC,aAAc,KACdC,QAAS,WAGX,OAAOC,QAAQC,SACjB"}

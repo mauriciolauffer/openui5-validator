@@ -10,14 +10,12 @@ sap.ui.define([
 ],
 /**
  * Module Dependencies
- *
  * @param {sap.ui.core.Core} Core - sap.ui.core.Core
  * @returns {object} openui5.validator library
  */
 function(Core) {
   /**
    * OpenUI5 library: openui5.validator.
-   *
    * @namespace
    * @name openui5.validator
    * @author Mauricio Lauffer
