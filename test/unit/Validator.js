@@ -9,7 +9,6 @@ sap.ui.require([
 ],
 /**
  * Module Dependencies
- *
  * @param {sap.ui.base.Object} UI5Object sap.ui.base.Object
  * @param {sap.ui.core} coreLibrary sap.ui.core.library
  * @param {sap.ui.core.message.Message} Message sap.ui.core.message.Message
@@ -28,7 +27,6 @@ function(UI5Object, coreLibrary, Message, XMLView, Validator) {
 
   /**
    * Schema
-   *
    * @returns {object} Schema
    */
   function getSchema() {

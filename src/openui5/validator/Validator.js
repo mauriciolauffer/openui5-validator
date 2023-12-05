@@ -9,11 +9,10 @@ sap.ui.define([
   'sap/ui/core/library',
   'sap/ui/core/Control',
   'sap/ui/core/message/Message',
-  'openui5/validator/thirdparty/ajv.min'
+  'openui5/validator/thirdparty/ajv/ajv.min'
 ],
 /**
  * Module Dependencies
- *
  * @param {sap.ui.base.Object} UI5Object sap.ui.base.Object
  * @param {sap.ui.core} coreLibrary sap.ui.core.library
  * @param {sap.ui.core.Control} UI5Control sap.ui.core.Control
@@ -24,7 +23,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
   /**
    * A list of properties of UI5 Controls which will be used to dynamically get the field value.
    * Validation is dynamic, it neither knows the control's type nor the property which is being validated.
-   *
    * @type {string[]}
    * @private
    */
@@ -33,7 +31,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
   /**
    * Default parameters to initialize Ajv.
    * https://github.com/epoberezkin/ajv#options
-   *
    * @type {object}
    * @private
    */
@@ -46,7 +43,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * OpenUI5 Validator.
-   *
    * @author Mauricio Lauffer
    * @version ${version}
    * @class
@@ -58,7 +54,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
   const Validator = UI5Object.extend('openui5.validator.Validator', {
   /**
    * Constructor for a new Validator.
-   *
    * @augments sap.ui.base.Object
    * @constructs
    * @param {sap.ui.core.mvc.View} view UI5 view which contains the fields to be validated.
@@ -95,7 +90,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Validates the payload against the schema.
-   *
    * @returns {boolean} Returns "true" if validation is successful and "false" in case of any validation error.
    * @public
    */
@@ -114,7 +108,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Returns all validation errors.
-   *
    * @returns {sap.ui.core.message.Message[]} Array of sap.ui.core.message.Message objects.
    * @public
    */
@@ -124,7 +117,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Returns the payload used in the validation.
-   *
    * @returns {object} [payload] Payload used in the validation.
    * @public
    */
@@ -134,7 +126,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Returns all valid properties which will be used to dynamically get the field value.
-   *
    * @returns {string[]} Array with all valid properties.
    * @public
    */
@@ -146,7 +137,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Adds new valid properties to be used to dynamically get the field value.
-   *
    * @param {string[]} validProperties An array containing valid properties to be added to the class.
    * @public
    */
@@ -159,7 +149,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Returns all UI5 Controls which will be validated.
-   *
    * @returns {sap.ui.core.Control[]} List of UI5 Controls to be validated.
    * @private
    */
@@ -181,7 +170,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Returns the payload to be validated.
-   *
    * @param {sap.ui.core.Control[]} controls List of UI5 Controls to be validated.
    * @returns {object} Payload to be validated.
    * @private
@@ -199,7 +187,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Returns the property value of the control.
-   *
    * @param {sap.ui.core.Control} control The control which will have its value extracted.
    * @returns {string} The property value of the control.
    * @private
@@ -232,7 +219,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Clears the status set to a list of controls
-   *
    * @param {sap.ui.core.Control[]} controls The controls which will have the status cleared.
    * @private
    */
@@ -249,7 +235,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Sets error status and error message to a control
-   *
    * @param {sap.ui.core.Control} control The control which will have the status updated.
    * @param {string} message The error message to be assigned to the control.
    * @private
@@ -265,7 +250,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Process all validation errors.
-   *
    * @param {object[]} errors A list with all errors returned by the validation.
    * @returns {sap.ui.core.message.Message[]} A list of sap.ui.core.message.Message objects.
    * @private
@@ -289,7 +273,6 @@ function(UI5Object, coreLibrary, UI5Control, Message) {
 
   /**
    * Creates an UI5 error message object.
-   *
    * @param {sap.ui.core.Control} control The control with invalid value.
    * @param {string} shortMessage The short error message to be displayed.
    * @param {string} longMessage The long error message to be displayed.

@@ -1,4 +1,4 @@
-specVersion: "2.6"
+specVersion: "3.1"
 metadata:
   name: openui5-validator
 type: library
@@ -8,8 +8,11 @@ resources:
       src: dist/resources
 framework:
   name: OpenUI5
-  version: 1.100.0
+  version: 1.120.0
   libraries:
     - name: sap.ui.core
+      development: true
     - name: sap.m
+      development: true
+    - name: themelib_sap_horizon
       development: true
