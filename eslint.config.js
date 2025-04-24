@@ -17,6 +17,11 @@ export default defineConfig([
   {
     files: ["src/**/*.js", "test/**/*.js", "demo/**/*.js"],
     extends: [ui5Config],
+    languageOptions: {
+      globals: {
+        Ajv: "readonly"
+      },
+    },
   },
   {
     files: ["test/**/*.js"],
