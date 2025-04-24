@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable sonarjs/no-nested-functions */
+
 sap.ui.require([
   'sap/ui/base/Object',
   'sap/ui/core/library',
@@ -231,7 +233,7 @@ function(UI5Object, coreLibrary, Message, XMLView, Validator) {
       test('Should add 1 new valid UI5 Control property', (assert) => {
         const validator = new Validator(viewForTest, getSchema());
         validator.addValidProperties(['ABAP']);
-        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added'); // eslint-disable-line
+        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added');
       });
       test('Should add more than 1 new valid UI5 Control property', (assert) => {
         const validator = new Validator(viewForTest, getSchema());
@@ -241,7 +243,7 @@ function(UI5Object, coreLibrary, Message, XMLView, Validator) {
       test('Should add 1 new valid UI5 Control property for a given instance', (assert) => {
         const validator = new Validator(viewForTest, getSchema());
         validator.addValidProperties(['ABAP']);
-        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added'); // eslint-disable-line
+        assert.strictEqual(validator.getValidProperties().length, 5, '1 new property added');
         const validator2 = new Validator(viewForTest, getSchema());
         assert.strictEqual(validator2.getValidProperties().length, 4, 'no new properties');
       });
