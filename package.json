@@ -23,7 +23,7 @@
     "ui5.yaml"
   ],
   "dependencies": {
-    "@wdio/spec-reporter": "^9.12.6",
+    "@wdio/spec-reporter": "^9.18.0",
     "ajv": "^6.12.6"
   },
   "devDependencies": {
