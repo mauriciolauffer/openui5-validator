@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "@wdio/spec-reporter": "^9.12.6",
-    "ajv": "^6.12.6"
+    "ajv": "^8.18.0"
   },
   "devDependencies": {
     "@openui5/ts-types": "^1.120.1",
